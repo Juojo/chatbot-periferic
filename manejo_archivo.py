@@ -18,10 +18,15 @@ datos = [
 # Funciones
 
 def calcularSha256(ruta_archivo):
-    with open(ruta_archivo, "rb") as f: # Abre el archivo en read only y en binario
-        f = f.read()
-        preguntas_sha256 = hashlib.sha256(f).hexdigest()
-    return str(preguntas_sha256)
+    sha256 = 0 # Inicializo variable local
+    try:
+        with open(ruta_archivo, "rb") as f: # Abre el archivo en read only y en binario
+            f = f.read()
+            preguntas_sha256 = hashlib.sha256(f).hexdigest()
+        sha256 = str(preguntas_sha256)
+    except FileNotFoundError:
+        sha256 = "0"
+    return sha256
 
 def escribirArchivo():
     if calcularSha256(ruta_archivo_preguntas) == sha256_correcto:
@@ -29,7 +34,7 @@ def escribirArchivo():
         print("No es necesario generar el archivo")
     else:
         print("El archivo con las preguntas no existe en el directorio o su contenido no es correcto")
-        print("Se esta generando el archivo '" + ruta_archivo_preguntas + "'...")
+        print("Se esta generando el archivo '" + ruta_archivo_preguntas + "'")
         
         try:
             preguntas = open(ruta_archivo_preguntas, "w") # Abre o crea el archivo con permisos de escritura
@@ -62,4 +67,5 @@ def escribirArchivo():
             print("Ocurrio un error con el archivo:", e)
             sys.exit(1) # Se finaliza el programa si ocurre un error
 
-def leerArchivo:
+def leerArchivo():
+    return
