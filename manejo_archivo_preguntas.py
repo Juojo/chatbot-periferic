@@ -28,7 +28,7 @@ def calcularSha256(ruta_archivo):
         sha256 = "0"
     return sha256
 
-def escribirArchivo():
+def escribirArchivoPreguntas():
     if calcularSha256(ruta_archivo_preguntas) == sha256_correcto:
         print("El archivo con las preguntas ya existe en el directorio y su contenido es correcto")
         print("No es necesario generar el archivo")
@@ -67,5 +67,5 @@ def escribirArchivo():
             print("Ocurrio un error con el archivo:", e)
             sys.exit(1) # Se finaliza el programa si ocurre un error
 
-def leerArchivo():
+def leerArchivoPreguntas():
     return
