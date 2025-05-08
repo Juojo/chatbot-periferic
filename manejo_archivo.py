@@ -1,4 +1,4 @@
-import hashlib
+import hashlib, sys
 
 # Variables
 
@@ -60,5 +60,6 @@ def escribirArchivo():
             print("El archivo se genero correctamente")
         except Exception as e:
             print("Ocurrio un error con el archivo:", e)
+            sys.exit(1) # Se finaliza el programa si ocurre un error
 
 def leerArchivo:
