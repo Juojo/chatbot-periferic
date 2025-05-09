@@ -4,7 +4,7 @@ import hashlib, sys
 
 ruta_archivo_preguntas = "./preguntas.csv";
 sha256_correcto_linux = "88631a6a1d95e248b1fdbe07263e0166ea456cddb38321bea0e2232e9941f09f"
-sha256_correcto_windows = ""
+sha256_correcto_windows = "a63a61443256d5cdd056a1fde81512999f397a1de581cbdee37161f253521563"
 
 campos = ["Pregunta", "Respuesta"]
 
