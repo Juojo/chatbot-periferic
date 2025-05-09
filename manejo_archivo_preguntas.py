@@ -3,7 +3,8 @@ import hashlib, sys
 # Variables
 
 ruta_archivo_preguntas = "./preguntas.csv";
-sha256_correcto = "3d30890753dcf1a9c8e96ac499f7363506a7725555af63b48af3fe8efeb7dd04"
+sha256_correcto_linux = "3d30890753dcf1a9c8e96ac499f7363506a7725555af63b48af3fe8efeb7dd04"
+sha256_correcto_windows = "a3818da030264621b18f844347457d8c5a89fc92995166151d7e07b4e49cb336"
 
 campos = ["Pregunta", "Respuesta"]
 
@@ -64,7 +65,7 @@ def leerArchivoPreguntas():
     # La funcion devuele los datos cargados en una matriz para poder ser utilizados directamente desde la memoria
     
     # Se escribe / crea el archivo si no existe o su contenido no es correcto
-    if calcularSha256(ruta_archivo_preguntas) != sha256_correcto:
+    if calcularSha256(ruta_archivo_preguntas) != sha256_correcto_linux and calcularSha256(ruta_archivo_preguntas) != sha256_correcto_windows:
         print("El archivo con las preguntas no existe en el directorio o su contenido no es correcto")
         escribirArchivoPreguntas()
         
