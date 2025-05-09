@@ -15,26 +15,32 @@ def normalizar(texto):
     texto = re.sub(r'[^a-z0-9]', '', texto)
     #Busca todo caracter que no sea una letra minuscula o un numero y lo elimina.
     return texto
-pregunta_encontrada=0
-print("Buenas, yo soy un chat bot, voy a estar respondiendo tus preguntas sobre perifericos.")
-print("Como es tu nombre?")
-print("Ingrese su nombre: ", end="")
-nombre=input()
+
+print("Hola mi nombre es CHATBOT, se mucho sobre perifericos y me encataria resolver cualquier duda que tengas relacionada a este tema.")
 print()
-print(f"Buenas {nombre}, en que puedo ayudarte hoy?")
-print("Escribe 'salir' para finalizar. Cual es tu pregunta: ", end="")
+
+print("Antes de empezar, ¿como es tu nombre?")
+print("Ingrese su nombre acá: ", end="")
+nombre = input()
+
+print()
+
+print(f"Ahora si {nombre}, en que puedo ayudarte hoy?")
+print("Ingrese su pregunta (o escriba 'salir' si ya no tiene mas pregutas): ", end="")
 pregunta_usuario = input()
+
 while pregunta_usuario != "salir":
     pregunta_encontrada=0
     for i in range (0, len(preguntas_almacenadas)):
         if normalizar(pregunta_usuario) == normalizar(preguntas_almacenadas[i][0]): # El primer valor de la lista numero i = 0 > es el primer lugar
-            print(preguntas_almacenadas[i][1])
+            print("Respuesta de CHATBOT: " + preguntas_almacenadas[i][1])
             pregunta_encontrada=1
     if pregunta_encontrada==0:
-        print()
-        print("Disculpame, no tengo respuesta a tu pregunta. Queres enseniarmela?")
+        print("Respuesta de CHATBOT: Disculpame, no tengo respuesta a tu pregunta. Queres enseniarmela?")
         print()
             
-    print("Escribe 'salir' para finalizar. Cual es tu pregunta: ", end="")
+    print("Ingrese su pregunta (o escriba 'salir' si ya no tiene mas pregutas): ", end="")
     pregunta_usuario = input()
+
+print()
 print(f"Gracias {nombre} por utilizar nuestro chatbot.")
