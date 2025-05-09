@@ -1,6 +1,5 @@
-from manejo_archivo_preguntas import escribirArchivoPreguntas, leerArchivoPreguntas
+from manejo_archivo_preguntas import leerArchivoPreguntas
 
-escribirArchivoPreguntas()
 preguntas_almacenadas = leerArchivoPreguntas()
 
 pregunta_usuario = input("Cual es tu pregunta?")
