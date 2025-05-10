@@ -46,7 +46,7 @@ datos = [
     ["¿Se puede jugar con teclado de oficina?", "Sí, pero uno gamer es más cómodo y rápido."],
     ["¿Una cámara web sirve para juegos?", "No es necesaria, solo si haces streaming."],
     ["¿Qué monitor usan los gamers?", "De 24 a 27 pulgadas, 144Hz o más, baja respuesta."],
-    ["¿Qué es DPI en el mouse?", "Es la sensibilidad; más DPI, más rápido se mueve el cursor."],
+    ["¿Qué es DPI en el mouse?", "Es la sensibilidad, si se aumenta el DPI el cursor se movera mas rapido."],
 ]
 
 # Funciones
