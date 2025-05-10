@@ -3,8 +3,8 @@ import hashlib, sys
 # Variables
 
 ruta_archivo_preguntas = "./preguntas.csv";
-sha256_correcto_linux = "88631a6a1d95e248b1fdbe07263e0166ea456cddb38321bea0e2232e9941f09f"
-sha256_correcto_windows = "a63a61443256d5cdd056a1fde81512999f397a1de581cbdee37161f253521563"
+sha256_correcto_linux = "4ade749a379aa7acf0e45dc184367d57f3b018c99101c950deb89cdeebfacd8a"
+sha256_correcto_windows = "d00b574f1b6095862ec6f363cde3e98f2bf9b9a6e3f1edddf8132ad215987c70"
 
 campos = ["Pregunta", "Respuesta"]
 
