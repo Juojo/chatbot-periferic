@@ -1,7 +1,7 @@
 import re
 import unicodedata
 from manejo_archivo_preguntas import leerArchivoPreguntas
-from manejo_archivo_preguntas import agregarPreguntaRespuesta
+from manejo_archivo_preguntas import agregarPreguntaRespuestaAprendida
 
 preguntas_almacenadas = leerArchivoPreguntas()
 
@@ -44,7 +44,7 @@ while pregunta_usuario != "salir":
             nueva_respuesta = input("Por favor, escribí la respuesta: ")
             
             # Guardar en el archivo CSV
-            agregarPreguntaRespuesta(pregunta_usuario, nueva_respuesta)
+            agregarPreguntaRespuestaAprendida(pregunta_usuario, nueva_respuesta)
             
             # También actualizar la lista en memoria
             preguntas_almacenadas.append((pregunta_usuario, nueva_respuesta))

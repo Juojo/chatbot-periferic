@@ -3,6 +3,7 @@ import hashlib, sys
 # Variables
 
 ruta_archivo_preguntas = "./preguntas.csv";
+ruta_archivo_preguntas_aprendidas = "./preguntasAprendidas.csv";
 sha256_correcto_linux = "4ade749a379aa7acf0e45dc184367d57f3b018c99101c950deb89cdeebfacd8a"
 sha256_correcto_windows = "d00b574f1b6095862ec6f363cde3e98f2bf9b9a6e3f1edddf8132ad215987c70"
 
@@ -120,9 +121,9 @@ def leerArchivoPreguntas():
         print("Ocurrio un error con la lectura del archivo:", e)
         sys.exit(1) # Se finaliza el programa si ocurre un error
 
-def agregarPreguntaRespuesta(pregunta, respuesta):
+def agregarPreguntaRespuestaAprendida(pregunta, respuesta):
     try:
-        with open(ruta_archivo_preguntas, "a", encoding="utf-8") as archivo:
+        with open(ruta_archivo_preguntas_aprendida, "a", encoding="utf-8") as archivo: # Abre el archivo en append mode (Escribe al final del arhivo)
             archivo.write(f"{pregunta};{respuesta}\n")
         print("Nueva pregunta-respuesta guardada correctamente.")
     except Exception as e:
