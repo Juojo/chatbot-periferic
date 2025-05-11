@@ -95,17 +95,18 @@ def escribirArchivoPreguntas():
         print("Ocurrio un error con la escritura del archivo:", e)
         sys.exit(1) # Se finaliza el programa si ocurre un error
 
-def leerArchivoPreguntas():
+def leerArchivoPreguntas(ruta_archivo):
     # La funcion devuele los datos cargados en una matriz para poder ser utilizados directamente desde la memoria
     
-    # Se escribe / crea el archivo si no existe o su contenido no es correcto
-    if calcularSha256(ruta_archivo_preguntas) != sha256_correcto_linux and calcularSha256(ruta_archivo_preguntas) != sha256_correcto_windows:
-        print("El archivo con las preguntas no existe en el directorio o su contenido no es correcto")
-        escribirArchivoPreguntas()
+    if ruta_archivo == ruta_archivo_preguntas:
+        # Se escribe/crea el archivo si no existe o su contenido no es correcto
+        if calcularSha256(ruta_archivo_preguntas) != sha256_correcto_linux and calcularSha256(ruta_archivo_preguntas) != sha256_correcto_windows:
+            print("El archivo con las preguntas no existe en el directorio o su contenido no es correcto")
+            escribirArchivoPreguntas()
         
     # Lectura
     try:
-        archivo_preguntas = open(ruta_archivo_preguntas, "r") # Abre el archivo como read only
+        archivo_preguntas = open(ruta_archivo, "r") # Abre el archivo como read only
         array_preguntas_respuestas = archivo_preguntas.readlines() # Asigna todas las lineas del archivo en un array, cada linea es un elemento y contiene una pregunta y su respuesta
         array_preguntas_respuestas.pop(0) # Elimina el primer elemento (Solo se usa en el csv para indicar los campos)
         
@@ -117,6 +118,10 @@ def leerArchivoPreguntas():
             matriz_preguntas_respuestas.append(pregunta_respuesta) # Guarda ese array en la ultima posicion de la matriz
         
         return matriz_preguntas_respuestas
+    except FileNotFoundError as e:
+        if ruta_archivo == ruta_archivo_preguntas_aprendidas:
+            print("(No hay preguntas aprendidas de sesiones anteriores)")
+            return False
     except Exception as e:
         print("Ocurrio un error con la lectura del archivo:", e)
         sys.exit(1) # Se finaliza el programa si ocurre un error
