@@ -39,16 +39,15 @@ while pregunta_usuario != "salir":
 
     if pregunta_encontrada==0:
         print("Respuesta de CHATBOT: Disculpame, no tengo respuesta a tu pregunta.")
+        print()
         aprender = input("¿Querés enseñarmela? (si/no): ").strip().lower()
         if aprender == "si":
             nueva_respuesta = input("Por favor, escribí la respuesta: ")
             
             # Guardar en el archivo CSV
-            agregarPreguntaRespuestaAprendida(pregunta_usuario, nueva_respuesta)
-            
-            # También actualizar la lista en memoria
-            preguntas_almacenadas.append((pregunta_usuario, nueva_respuesta))
-            print("¡Gracias! He aprendido una nueva respuesta.")
+            if agregarPreguntaRespuestaAprendida(pregunta_usuario, nueva_respuesta): # Devuelve True si no hay fallas
+                # También actualizar la lista en memoria
+                preguntas_almacenadas.append((pregunta_usuario, nueva_respuesta))              
         else:
             print("Está bien, no hay problema. Si más adelante querés enseñarmela, avisame :)")
             

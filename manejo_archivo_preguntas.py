@@ -122,9 +122,14 @@ def leerArchivoPreguntas():
         sys.exit(1) # Se finaliza el programa si ocurre un error
 
 def agregarPreguntaRespuestaAprendida(pregunta, respuesta):
+    # La funcion devuelve True si escribio correctamente los datos
+    
     try:
-        with open(ruta_archivo_preguntas_aprendida, "a", encoding="utf-8") as archivo: # Abre el archivo en append mode (Escribe al final del arhivo)
+        with open(ruta_archivo_preguntas_aprendidas, "a", encoding="utf-8") as archivo: # Abre el archivo en append mode (Escribe al final del arhivo)
             archivo.write(f"{pregunta};{respuesta}\n")
-        print("Nueva pregunta-respuesta guardada correctamente.")
+        print("\nNueva pregunta-respuesta guardada correctamente.")
+        print("¡Gracias! He aprendido algo nuevo.\n")
+        return True
     except Exception as e:
-        print("Error al guardar la nueva pregunta:", e)
+        print("\nError al guardar la nueva pregunta:", e)
+        return False
