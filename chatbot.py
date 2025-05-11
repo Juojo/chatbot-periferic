@@ -1,6 +1,7 @@
 import re
 import unicodedata
 from manejo_archivo_preguntas import leerArchivoPreguntas
+from manejo_archivo_preguntas import agregarPreguntaRespuesta
 
 preguntas_almacenadas = leerArchivoPreguntas()
 
@@ -35,9 +36,21 @@ while pregunta_usuario != "salir":
         if normalizar(pregunta_usuario) == normalizar(preguntas_almacenadas[i][0]): # El primer valor de la lista numero i = 0 > es el primer lugar
             print("Respuesta de CHATBOT: " + preguntas_almacenadas[i][1])
             pregunta_encontrada=1
+
     if pregunta_encontrada==0:
-        print("Respuesta de CHATBOT: Disculpame, no tengo respuesta a tu pregunta. Queres enseniarmela?")
-        print()
+        print("Respuesta de CHATBOT: Disculpame, no tengo respuesta a tu pregunta.")
+        aprender = input("¿Querés enseñarmela? (si/no): ").strip().lower()
+        if aprender == "si":
+            nueva_respuesta = input("Por favor, escribí la respuesta: ")
+            
+            # Guardar en el archivo CSV
+            agregarPreguntaRespuesta(pregunta_usuario, nueva_respuesta)
+            
+            # También actualizar la lista en memoria
+            preguntas_almacenadas.append((pregunta_usuario, nueva_respuesta))
+            print("¡Gracias! He aprendido una nueva respuesta.")
+        else:
+            print("Está bien, no hay problema. Si más adelante querés enseñarmela, avisame :)")
             
     print("Ingrese su pregunta (o escriba 'salir' si ya no tiene mas pregutas): ", end="")
     pregunta_usuario = input()

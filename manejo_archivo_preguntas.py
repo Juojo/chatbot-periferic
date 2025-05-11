@@ -119,3 +119,11 @@ def leerArchivoPreguntas():
     except Exception as e:
         print("Ocurrio un error con la lectura del archivo:", e)
         sys.exit(1) # Se finaliza el programa si ocurre un error
+
+def agregarPreguntaRespuesta(pregunta, respuesta):
+    try:
+        with open(ruta_archivo_preguntas, "a", encoding="utf-8") as archivo:
+            archivo.write(f"{pregunta};{respuesta}\n")
+        print("Nueva pregunta-respuesta guardada correctamente.")
+    except Exception as e:
+        print("Error al guardar la nueva pregunta:", e)
