@@ -4,8 +4,7 @@ import hashlib, sys
 
 ruta_archivo_preguntas = "./preguntas.csv";
 ruta_archivo_preguntas_aprendidas = "./preguntasAprendidas.csv";
-sha256_correcto_linux = "4ade749a379aa7acf0e45dc184367d57f3b018c99101c950deb89cdeebfacd8a"
-sha256_correcto_windows = "d00b574f1b6095862ec6f363cde3e98f2bf9b9a6e3f1edddf8132ad215987c70"
+sha256_correcto = "4ade749a379aa7acf0e45dc184367d57f3b018c99101c950deb89cdeebfacd8a"
 
 campos = ["Pregunta", "Respuesta"]
 
@@ -67,7 +66,7 @@ def escribirArchivoPreguntas():
     print("Se esta generando el archivo '" + ruta_archivo_preguntas + "'")
     
     try:
-        archivo_preguntas = open(ruta_archivo_preguntas, "w") # Abre o crea el archivo con permisos de escritura
+        archivo_preguntas = open(ruta_archivo_preguntas, "w", encoding="utf-8", newline="\n") # Abre o crea el archivo con permisos de escritura
 
         # En la primer linea se escriben los campos
         for i in range (0, len(campos)):
@@ -100,7 +99,7 @@ def leerArchivoPreguntas(ruta_archivo):
     
     if ruta_archivo == ruta_archivo_preguntas:
         # Se escribe/crea el archivo si no existe o su contenido no es correcto
-        if calcularSha256(ruta_archivo_preguntas) != sha256_correcto_linux and calcularSha256(ruta_archivo_preguntas) != sha256_correcto_windows:
+        if calcularSha256(ruta_archivo_preguntas) != sha256_correcto:
             print("El archivo con las preguntas no existe en el directorio o su contenido no es correcto")
             escribirArchivoPreguntas()
         
