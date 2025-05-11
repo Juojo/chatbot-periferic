@@ -4,12 +4,12 @@ import hashlib, sys
 
 ruta_archivo_preguntas = "./preguntas.csv";
 ruta_archivo_preguntas_aprendidas = "./preguntasAprendidas.csv";
-sha256_correcto = "46f777522195b5698ad8215dfd5275232c9ebf189b116cda50e20ed8a0d4562e"
+sha256_correcto = "4c7bd677dfdd9418b153e8682f70a24dbe867367af13863ee2db7dc1fab58e58"
 
 campos = ["Pregunta", "Respuesta"]
 
 datos = [
-    ["Hola", "Hola!, ¿en que puedo ayudarte?"],
+    ["Hola", "Hola!, en que puedo ayudarte?"],
     ["¿Qué es un periférico?", "Es un dispositivo que se conecta a una computadora para enviar o recibir datos."],
     ["¿Un teclado es un periférico?", "Sí, es un periférico de entrada."],
     ["¿El monitor es de entrada o salida?", "Es un periférico de salida."],
