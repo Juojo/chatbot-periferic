@@ -4,7 +4,7 @@
 
 * El programa debe ejecutarse desde el archivo `chatbot.py`
 
-* No se entrega el archivo .csv con las preguntas y respuestas porque el mismo es generado automáticamente y de forma inteligente al ejecutar el programa.
+* No es necesario tener el archivo `preguntas.csv` porque el mismo es generado automáticamente y de forma inteligente al ejecutar el programa.
 
 ## ¿Qué quiere decir que el archivo .csv se genera "de forma inteligente"?
 
