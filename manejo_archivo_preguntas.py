@@ -106,7 +106,7 @@ def leerArchivoPreguntas(ruta_archivo):
         
     # Lectura
     try:
-        archivo_preguntas = open(ruta_archivo, "r") # Abre el archivo como read only
+        archivo_preguntas = open(ruta_archivo, "r", encoding="utf-8", newline="\n") # Abre el archivo como read only
         array_preguntas_respuestas = archivo_preguntas.readlines() # Asigna todas las lineas del archivo en un array, cada linea es un elemento y contiene una pregunta y su respuesta
         
         # Elimina el primer elemento del archivo preguntas (Solo se usa en el csv para indicar los campos)
