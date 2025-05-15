@@ -24,11 +24,12 @@ print()
 print(f"Ahora si {nombre}, en que puedo ayudarte hoy?")
 print("Ingrese su pregunta (o escriba 'salir' si ya no tiene mas preguntas): ", end="")
 pregunta_usuario = input()
+pregunta_usuario = normalizar(pregunta_usuario)
 
 while pregunta_usuario != "salir":
     pregunta_encontrada=0
     for i in range (0, len(preguntas_almacenadas)):
-        if normalizar(pregunta_usuario) == preguntas_almacenadas[i][0]:
+        if pregunta_usuario == preguntas_almacenadas[i][0]:
             print(f"Respuesta de {nombre_chatbot}: " + preguntas_almacenadas[i][1])
             pregunta_encontrada=1
 
