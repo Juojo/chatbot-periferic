@@ -1,5 +1,4 @@
-import re
-import unicodedata
+from util import *
 from manejo_archivo_preguntas import leerArchivoPreguntas, agregarPreguntaRespuestaAprendida
 from manejo_archivo_preguntas import ruta_archivo_preguntas, ruta_archivo_preguntas_aprendidas
 
@@ -10,18 +9,6 @@ preguntas_aprendidas = leerArchivoPreguntas(ruta_archivo_preguntas_aprendidas) #
 if preguntas_aprendidas != False: # Solo puede ser falso en caso de que no se haya encontrado el archivo con preguntas aprendidas
     for i in range (0, len(preguntas_aprendidas)):
         preguntas_almacenadas.append(preguntas_aprendidas[i]) # Agrega al final de preguntas_almacenadas la pregunta-respuesta aprendida
-
-def normalizar(texto):
-    texto = texto.lower()
-    #La funcion convierte todo el texto a minúsculas.
-    
-    texto = unicodedata.normalize('NFD', texto).encode('ascii', 'ignore').decode('utf-8')
-    #Esta función descompone los caracteres con acento e ignroa todo lo que no sea ASCII para luego volverlo a convertir en str.
-    
-    
-    texto = re.sub(r'[^a-z0-9]', '', texto)
-    #Busca todo caracter que no sea una letra minuscula o un numero y lo elimina.
-    return texto
 
 nombre_chatbot = "Periferic"
 
@@ -41,7 +28,7 @@ pregunta_usuario = input()
 while pregunta_usuario != "salir":
     pregunta_encontrada=0
     for i in range (0, len(preguntas_almacenadas)):
-        if normalizar(pregunta_usuario) == normalizar(preguntas_almacenadas[i][0]):
+        if normalizar(pregunta_usuario) == preguntas_almacenadas[i][0]:
             print(f"Respuesta de {nombre_chatbot}: " + preguntas_almacenadas[i][1])
             pregunta_encontrada=1
 

@@ -1,4 +1,6 @@
 import hashlib, sys
+import util
+from util import *
 
 # Variables
 
@@ -117,6 +119,7 @@ def leerArchivoPreguntas(ruta_archivo):
         
         for i in range (0, len(array_preguntas_respuestas)):
             pregunta_respuesta = array_preguntas_respuestas[i].split(";") # Divide el string en un array de dos posiciones. La primera es la pregunta, la segunda la respuesta
+            pregunta_respuesta[0] = normalizar(pregunta_respuesta[0]) # Normaliza la pregunta, no es necesario almacenar en memoria la pregunta original
         
             matriz_preguntas_respuestas.append(pregunta_respuesta) # Guarda ese array en la ultima posicion de la matriz
         
