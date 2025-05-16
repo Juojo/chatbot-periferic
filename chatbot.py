@@ -1,6 +1,7 @@
 from util import *
 from manejo_archivo_preguntas import leerArchivoPreguntas, agregarPreguntaRespuestaAprendida
 from manejo_archivo_preguntas import ruta_archivo_preguntas, ruta_archivo_preguntas_aprendidas
+from puntaje import *
 
 preguntas_almacenadas = leerArchivoPreguntas(ruta_archivo_preguntas) # Guarda en memoria las preguntas originales
 
@@ -10,10 +11,11 @@ if preguntas_aprendidas != False: # Solo puede ser falso en caso de que no se ha
     for i in range (0, len(preguntas_aprendidas)):
         preguntas_almacenadas.append(preguntas_aprendidas[i]) # Agrega al final de preguntas_almacenadas la pregunta-respuesta aprendida
 
-# Palabras clave
+# Palabras clave y puntaje
 for i in range(0, len(preguntas_almacenadas)):
     palabras_clave = preguntas_almacenadas[i][0].split()
     preguntas_almacenadas[i].append(palabras_clave)
+    preguntas_almacenadas[i].append(calcularPuntajeListaPalabras(palabras_clave))
 
 nombre_chatbot = "Periferic"
 
@@ -37,6 +39,11 @@ while pregunta_usuario != "salir":
     porcentaje_mayor = 0.0
     index_porcentaje_mayor = 0
     palabras_clave_usuario = pregunta_usuario.split()
+    puntaje_palabras_usuario = []
+    
+    # Calcula puntaje de cada palabra del usuario y lo guarda en puntaje_palabras_usuario
+    for i in range (0, len(palabras_clave_usuario)):
+        puntaje_palabras_usuario.append(calculcarPuntajePalabra(palabras_clave_usuario[i]))
     
     for i in range (0, len(preguntas_almacenadas)): # Itera sobre todas las pregunta-respuesta
         
@@ -45,7 +52,8 @@ while pregunta_usuario != "salir":
             pregunta_encontrada=1
         else:
             # Si no es identica, se calcula el porcentaje de similitud entre las palabras clave de la pregunta del usuario y la almacenada
-            cont_similitud = 0
+            #cont_similitud = 0
+            puntaje = 0
             palabras_clave_pregunta_almacenada = preguntas_almacenadas[i][2][:] # [:] -> crea una copia identica de la lista original (No copia elementos mutables)
             len_palabras_clave_pregunta_almacenada = len(palabras_clave_pregunta_almacenada)
             
@@ -54,14 +62,16 @@ while pregunta_usuario != "salir":
                 similitud_encontrada = False
                 while similitud_encontrada == False and k < len(palabras_clave_pregunta_almacenada): # Itera sobre lista PC almacenadas, siempre y cuando no se haya encontrado una similitud
                     if palabras_clave_usuario[j] == palabras_clave_pregunta_almacenada[k]:
-                        cont_similitud += 1
+                        #cont_similitud += 1
+                        puntaje += puntaje_palabras_usuario[j]
                         palabras_clave_pregunta_almacenada.pop(k) # Elimina el elemento encontrado para que no matchee otra vez
                         similitud_encontrada = True
                     k += 1
             
             # Calculo de porcentaje
-            if cont_similitud != 0:
-                calculo_porcentaje_actual = cont_similitud / len_palabras_clave_pregunta_almacenada # 1=100%, 0.5=50%, etc
+            if puntaje > 0:
+                #calculo_porcentaje_actual = cont_similitud / len_palabras_clave_pregunta_almacenada # 1=100%, 0.5=50%, etc
+                calculo_porcentaje_actual = puntaje / preguntas_almacenadas[i][3]
                 
                 if calculo_porcentaje_actual > porcentaje_mayor:
                     porcentaje_mayor = calculo_porcentaje_actual
