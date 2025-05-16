@@ -28,6 +28,3 @@ def calcularPuntajeListaPalabras(listaPalabrasClave):
         puntaje_total += calculcarPuntajePalabra(listaPalabrasClave[i])
             
     return puntaje_total
-
-# print(calculcarPuntajePalabra("a"))
-#print(calcularPuntajeListaPalabras(["que", "es", "un", "periferico"]))
