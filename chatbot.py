@@ -67,36 +67,38 @@ pregunta_usuario = ingresarPreguntaUsuario()
 # Entra en el ciclo principal del programa
 while pregunta_usuario != "salir":
     
-    pregunta_encontrada=0
-    porcentaje_actual = 0.0
-    porcentaje_mayor = 0.0
-    index_porcentaje_mayor = 0
+    pregunta_encontrada = 0
     
-    palabras_clave_usuario = pregunta_usuario.split()
-    
-    # Calcula puntaje de cada palabra del usuario y lo guarda en puntaje_palabras_usuario
-    puntaje_palabras_usuario = [] 
-    for i in range (0, len(palabras_clave_usuario)):
-        puntaje_palabras_usuario.append(calculcarPuntajePalabra(palabras_clave_usuario[i]))
-    
-    # Itera sobre todas las preguntas en busqueda de una coincidencia
+    # Primero se busca una coincidencia exacta entre la pregunta del usuario y alguna de las preguntas almacenadas
     for i in range (0, len(preguntas_almacenadas)):
-        
-        # Compara si la pregunta del usuario es identica a la pregunta almacenda
         if pregunta_usuario == preguntas_almacenadas[i][0]:
             print(f"Respuesta de {nombre_chatbot}: " + preguntas_almacenadas[i][1])
-            pregunta_encontrada=1
-            
-        # Si no es identica, se calcula el porcentaje de similitud entre las palabras clave de la pregunta del usuario y la almacenada
-        else:
+            pregunta_encontrada = 1
+    
+    # Si no encuentra ninguna, se calcula el porcentaje de similitud entre las palabras clave de la pregunta del usuario y la almacenada
+    if pregunta_encontrada == 0:
+        palabras_clave_usuario = pregunta_usuario.split()
+        
+        # Calcula puntaje de cada palabra del usuario y lo guarda en puntaje_palabras_usuario
+        puntaje_palabras_usuario = [] 
+        for i in range (0, len(palabras_clave_usuario)):
+            puntaje_palabras_usuario.append(calculcarPuntajePalabra(palabras_clave_usuario[i]))
+        
+        porcentaje_actual = 0.0
+        porcentaje_mayor = 0.0
+        index_porcentaje_mayor = 0
+        
+        # Itera sobre todas las preguntas almacenadas y calcula el porcentaje de similitud para cada una
+        for i in range (0, len(preguntas_almacenadas)):
             puntaje = 0
             palabras_clave_pregunta_almacenada = preguntas_almacenadas[i][2][:] # [:] -> crea una copia identica de la lista original (No copia elementos mutables)             
             
             # Itera sobre la lista de palabras clave del usuario
             for j in range(0, len(palabras_clave_usuario)):               
-                # Itera sobre lista palabras claves almacenadas, siempre y cuando no se haya encontrado una similitud
                 k = 0
                 similitud_encontrada = False
+                
+                # Itera sobre lista palabras claves almacenadas, siempre y cuando no se haya encontrado una similitud
                 while k < len(palabras_clave_pregunta_almacenada) and similitud_encontrada == False:
                     # Si encuentra similitud
                     if palabras_clave_usuario[j] == palabras_clave_pregunta_almacenada[k]:
@@ -117,14 +119,17 @@ while pregunta_usuario != "salir":
                 if porcentaje_actual > porcentaje_mayor:
                     porcentaje_mayor = porcentaje_actual
                     index_porcentaje_mayor = i
-    
-    print(porcentaje_mayor) # Borrar
-    if porcentaje_mayor >= 0.75:
-        print(f"Respuesta de {nombre_chatbot}: " + preguntas_almacenadas[index_porcentaje_mayor][1], end="")
-        print("Estoy un", round(porcentaje_mayor*100, 2), "% seguro de mi respuesta")
-        pregunta_encontrada=1
+                    
+        #print(porcentaje_mayor) # Borrar
+        # Solo se considera que la pregunta fue encontrada si supera este valor
+        if porcentaje_mayor >= 0.75:
+            print(f"Respuesta de {nombre_chatbot}: " + preguntas_almacenadas[index_porcentaje_mayor][1], end="")
+            print("Estoy un", round(porcentaje_mayor*100, 2), "% seguro de mi respuesta")
+            print()
+            pregunta_encontrada=1
 
-    if pregunta_encontrada==0:
+    # Si sigue sin haberse encontrado una pregunta, se le pregunta al usuario si la quiere agregar
+    if pregunta_encontrada == 0:
         print(f"Respuesta de {nombre_chatbot}: Disculpame, no tengo respuesta a tu pregunta.")
         print()
         aprender = input("¿Querés enseñarmela? (si/no): ").strip().lower()
