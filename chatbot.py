@@ -67,6 +67,9 @@ while pregunta_usuario != "salir":
                         palabras_clave_pregunta_almacenada.pop(k) # Elimina el elemento encontrado para que no matchee otra vez
                         similitud_encontrada = True
                     k += 1
+                if similitud_encontrada == False and k == len(palabras_clave_pregunta_almacenada):
+                    # No se encontro ninguna similitud para esta palabra, se resta puntaje
+                    puntaje += puntaje_negativo
             
             # Calculo de porcentaje
             if puntaje > 0:
@@ -77,9 +80,10 @@ while pregunta_usuario != "salir":
                     porcentaje_mayor = calculo_porcentaje_actual
                     index_porcentaje_mayor = i
     
-    print(porcentaje_mayor)
-    if porcentaje_mayor >= 0.70:
-        print(f"Respuesta de {nombre_chatbot}: " + preguntas_almacenadas[index_porcentaje_mayor][1])
+    print(porcentaje_mayor) # Borrrar
+    if porcentaje_mayor >= 0.75:
+        print(f"Respuesta de {nombre_chatbot}: " + preguntas_almacenadas[index_porcentaje_mayor][1], end="")
+        print("Estoy un", round(porcentaje_mayor*100, 2), "% seguro de mi respuesta")
         pregunta_encontrada=1
 
     if pregunta_encontrada==0:

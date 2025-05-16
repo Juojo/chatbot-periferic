@@ -1,5 +1,5 @@
 puntaje_bajo = 1
-puntaje_alto = 2
+puntaje_alto = 5
 puntaje_negativo = -1
 
 palabras_bajo_puntaje = ["que", "es", "un"]
