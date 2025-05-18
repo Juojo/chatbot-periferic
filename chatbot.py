@@ -139,7 +139,7 @@ while pregunta_usuario != "salir":
             # Guardar en el archivo CSV
             if agregarPreguntaRespuestaAprendida(pregunta_usuario, nueva_respuesta): # Devuelve True si no hay fallas
                 # También actualizar la lista en memoria
-                preguntas_almacenadas.append((pregunta_usuario, nueva_respuesta + "\n"))              
+                preguntas_almacenadas.append((pregunta_usuario, nueva_respuesta + "\n", pregunta_usuario.split(), calcularPuntajeListaPalabras(pregunta_usuario.split())))
         else:
             print("Está bien, no hay problema. Si más adelante querés enseñarmela, avisame :)\n")
     
