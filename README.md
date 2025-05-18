@@ -1,5 +1,15 @@
 # Equipo 2 - Copa de algoritmia 2025
 
+# Cambios de la semana 2
+
+Para esta segunda entrega realizamos los siguientes cambios y mejoras:
+
+* Se creo un archivo `util.py` para escribir funciones genericas que nos faciliten el desarrolo. Un ejemplo de esto es la funcion `normalizar(texto)`.
+
+## Optimizacion
+* Ahora las preguntas se guardan en memoria directamente normalizadas. No era necesario tener la pregunta original.
+* La pregunta del usuario se normaliza una unica vez
+
 # Importante!
 
 * El programa debe ejecutarse desde el archivo `chatbot.py`
