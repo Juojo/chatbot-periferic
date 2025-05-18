@@ -132,6 +132,14 @@ while pregunta_usuario != "salir":
     if pregunta_encontrada == 0:
         print(f"Respuesta de {nombre_chatbot}: Disculpame, no tengo respuesta a tu pregunta.")
         print()
+        if len(pregunta_usuario.split()) >= 10:
+            print(f"Tu pregunta fue muy larga {nombre_usuario}, si queres podes volver a preguntarmela de una manera mas corta y directa.")
+            print("Por ejemplo, si queres saber que es un periferico:")
+            print()
+            print("Decime: '¿Que es un perifercio?'")
+            print("No me digas: 'Hola ¿como estas? me gustaria saber que es un periferico'")
+            print()
+            print("De todos modos, capaz me estas preguntando algo que no sepa. Puedo apreder la pregunta que me hiciste si me decis la respuesta.")
         aprender = input("¿Querés enseñarmela? (si/no): ").strip().lower()
         if aprender == "si":
             nueva_respuesta = input("Por favor, escribí la respuesta: ")
