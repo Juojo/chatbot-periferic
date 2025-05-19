@@ -139,7 +139,7 @@ while pregunta_usuario != "salir":
             print("Decime: '¿Que es un perifercio?'")
             print("No me digas: 'Hola ¿como estas? me gustaria saber que es un periferico'")
             print()
-            print("De todos modos, capaz me estas preguntando algo que no sepa. Puedo apreder la pregunta que me hiciste si me decis la respuesta.")
+            print("De todos modos, capaz me estas preguntando algo que no sepa. Puedo aprender la pregunta que me hiciste si me decis la respuesta.")
         aprender = input("¿Querés enseñarmela? (si/no): ").strip().lower()
         if aprender == "si":
             nueva_respuesta = input("Por favor, escribí la respuesta: ")
