@@ -2,7 +2,7 @@ puntaje_bajo = 1
 puntaje_alto = 5
 puntaje_negativo = -1
 
-palabras_bajo_puntaje = ["que", "es", "un"]
+palabras_bajo_puntaje = ["a", "que", "el", "la", "los", "las", "un", "una", "de", "en", "o", "y", "para", "con", "sin", "se"]
 
 def calculcarPuntajePalabra(palabra):
     puntaje_total = 0
