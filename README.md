@@ -1,10 +1,63 @@
 # Equipo 2 - Copa de algoritmia 2025
 
+# Cambios de la semana 2
+
+Para esta segunda entrega realizamos los siguientes cambios y mejoras:
+
+## Sistema de puntajes y palabras clave
+
+Implementamos un sistema que permite encontrar preguntas que no hayan sido escritas literalmente como las tenemos almacenadas.
+
+Esto quiere decir que si el usuario escribe "Que es periférico?" el chatbot es capaz de interpretarlo como "que es un periférico" y mostrar la respuesta a la pregunta.
+
+### ¿Cómo funciona el sistema de puntajes?
+
+Dividimos la pregunta del usuario y las preguntas almacenadas en elementos de una lista utilizando la función integrada de python `.split()`.
+
+Luego comparamos ambas listas en busca de palabras que coincidan. Si se encuentra una coincidencia:
+
+* Sumamos puntaje (la cantidad varía en si es una palabra de bajo o alto puntaje)
+* Eliminamos la palabra que fue encontrada para que no pueda seguir sumando puntos.
+
+Una vez que tenemos el puntaje de la pregunta sumado, calculamos el porcentaje de similitud: Puntaje sumado / Puntaje máximo de la pregunta almacenada.
+
+Se guarda cuál fue la pregunta con el mayor porcentaje, y si está por encima del 75% se printea la respuesta.
+
+* **Palabras de bajo puntaje:** que, es, un, etc.
+* **Palabras de alto puntaje:** Son todas las que no sean de bajo puntaje. Por ejemplo: periférico, teclado, etc.
+
+## Estructura del proyecto
+
+* Se creó `util.py` para escribir funciones genéricas que nos faciliten el desarrollo. Un ejemplo de esto es la función `normalizar(texto)`.
+
+* Se creó `puntaje.py` para hacer los cálculos de puntaje y almacenar la cantidad de puntos que representa cada palabra
+
+## Optimización
+* Ahora las preguntas se guardan en memoria directamente normalizadas. No era necesario tener la pregunta original.
+ 
+* La pregunta del usuario se normaliza una única vez. Antes se llamaba a la función en cada iteración del for.
+
+## Cambios varios
+
+* Se reestructuró una gran parte de `chatbot.py`. Se agregaron funciones y se modificó el ciclo while principal del programa. Todo esto se hizo con el objetivo de mejorar la legibilidad del código.
+
+* Se muestra un mensaje de advertencia si la pregunta del usuario es muy larga y no se le encontró una respuesta.
+
+* Decidimos seguir utilizando `CSV` y no pasarnos a `JSON` porque este ultimo es mas pesado y realmente no necesitamos las ventajas que ofrece.
+
+<br>
+
+# Comienzo del README original (entregado en la semana 1)
+
+<br>
+
 # Importante!
 
 * El programa debe ejecutarse desde el archivo `chatbot.py`
 
 * No es necesario tener el archivo `preguntas.csv` porque el mismo es generado automáticamente y de forma inteligente al ejecutar el programa.
+
+* El archivo `preguntas.csv` utiliza el encoding: `UTF-8`. Si se abre desde Excel, Bloc de notas, etc se deberá configurar de esta manera para su correcta visualización.
 
 ## ¿Qué quiere decir que el archivo .csv se genera "de forma inteligente"?
 
