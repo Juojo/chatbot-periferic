@@ -120,7 +120,6 @@ while pregunta_usuario != "salir":
                     porcentaje_mayor = porcentaje_actual
                     index_porcentaje_mayor = i
                     
-        #print(porcentaje_mayor) # Borrar
         # Solo se considera que la pregunta fue encontrada si supera este valor
         if porcentaje_mayor >= 0.75:
             print(cambiarColor("Respuesta de " + nombre_chatbot + ": ", "amarillo") + preguntas_almacenadas[index_porcentaje_mayor][1], end="")
