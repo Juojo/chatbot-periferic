@@ -37,14 +37,14 @@ def almacenarPreguntasEnMemoria():
     # Y si se quisiera obtener la primer palabra de la lista de palabras claves: preguntas_almacenadas[2][2][0]
 
 def preguntarIngresarNombreUsuario():
-    print("Antes de empezar, ¿como es tu nombre?")
-    print("Ingrese su nombre acá: ", end="")
+    print(cambiarColor("Antes de empezar, ¿como es tu nombre?", "amarillo"))
+    print(cambiarColor("Ingrese su nombre acá: ", "amarillo"), end="",)
     nombre = input()
     
     return nombre
 
 def ingresarPreguntaUsuario():
-    print("Ingrese su pregunta (o escriba 'salir' si ya no tiene mas preguntas): ", end="")
+    print(cambiarColor("Ingrese su pregunta", "amarillo"), "(o escriba", cambiarColor("'salir'", "rojo"), "si ya no tiene mas preguntas): ",  end="")
     pregunta = input()
     pregunta = normalizar(pregunta)
     
@@ -55,13 +55,13 @@ def ingresarPreguntaUsuario():
 # Lee los archivos .csv con las preguntas almacenadas y las guarda en memoria
 preguntas_almacenadas = almacenarPreguntasEnMemoria()
 
-print(f"Hola mi nombre es {nombre_chatbot}, se mucho sobre perifericos y me encataria resolver cualquier duda que tengas relacionada a este tema.")
+print("Hola mi nombre es", cambiarColor(nombre_chatbot, "rojo"), "se mucho sobre perifericos y me encataria resolver cualquier duda que tengas relacionada a este tema.")
 print()
 
 nombre_usuario = preguntarIngresarNombreUsuario()
 print()
 
-print(f"Ahora si {nombre_usuario}, en que puedo ayudarte hoy?")
+print("Ahora si", cambiarColor(nombre_usuario, "verde"), "en que puedo ayudarte hoy?")
 pregunta_usuario = ingresarPreguntaUsuario()
 
 # Entra en el ciclo principal del programa
@@ -72,7 +72,7 @@ while pregunta_usuario != "salir":
     # Primero se busca una coincidencia exacta entre la pregunta del usuario y alguna de las preguntas almacenadas
     for i in range (0, len(preguntas_almacenadas)):
         if pregunta_usuario == preguntas_almacenadas[i][0]:
-            print(f"Respuesta de {nombre_chatbot}: " + preguntas_almacenadas[i][1])
+            print(cambiarColor("Respuesta de " + nombre_chatbot + ": ", "amarillo") + preguntas_almacenadas[i][1])
             pregunta_encontrada = 1
     
     # Si no encuentra ninguna, se calcula el porcentaje de similitud entre las palabras clave de la pregunta del usuario y la almacenada
@@ -123,21 +123,21 @@ while pregunta_usuario != "salir":
         #print(porcentaje_mayor) # Borrar
         # Solo se considera que la pregunta fue encontrada si supera este valor
         if porcentaje_mayor >= 0.75:
-            print(f"Respuesta de {nombre_chatbot}: " + preguntas_almacenadas[index_porcentaje_mayor][1], end="")
+            print(cambiarColor("Respuesta de " + nombre_chatbot + ": ", "amarillo") + preguntas_almacenadas[index_porcentaje_mayor][1], end="")
             print("Estoy un", round(porcentaje_mayor*100, 2), "% seguro de mi respuesta")
             print()
             pregunta_encontrada=1
 
     # Si sigue sin haberse encontrado una pregunta, se le pregunta al usuario si la quiere agregar
     if pregunta_encontrada == 0:
-        print(f"Respuesta de {nombre_chatbot}: Disculpame, no tengo respuesta a tu pregunta.")
+        print(cambiarColor("Respuesta de " + nombre_chatbot + ":", "amarillo"), "Disculpame, no tengo respuesta a tu pregunta.")
         print()
         if len(pregunta_usuario.split()) >= 10:
             print(f"Tu pregunta fue muy larga {nombre_usuario}, si queres podes volver a preguntarmela de una manera mas corta y directa.")
             print("Por ejemplo, si queres saber que es un periferico:")
             print()
-            print("Decime: '¿Que es un perifercio?'")
-            print("No me digas: 'Hola ¿como estas? me gustaria saber que es un periferico'")
+            print("Decime: ", cambiarColor("'¿Que es un perifercio?'", "verde"))
+            print("No me digas: ", cambiarColor("'Hola ¿como estas? me gustaria saber que es un periferico'", "rojo"))
             print()
             print("De todos modos, capaz me estas preguntando algo que no sepa. Puedo aprender la pregunta que me hiciste si me decis la respuesta.")
         aprender = input("¿Querés enseñarmela? (si/no): ").strip().lower()
@@ -156,4 +156,4 @@ while pregunta_usuario != "salir":
 
 # Fin del programa
 print()
-print(f"Gracias {nombre_usuario} por utilizar nuestro chatbot.")
+print("Gracias", cambiarColor(nombre_usuario, "verde"), "por utilizar nuestro chatbot.")
