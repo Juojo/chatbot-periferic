@@ -4,7 +4,7 @@ puntaje_negativo = -1
 
 palabras_bajo_puntaje = ["a", "que", "el", "la", "los", "las", "un", "una", "de", "en", "o", "y", "para", "con", "sin", "se"]
 
-def calculcarPuntajePalabra(palabra):
+def calcular_puntaje_palabra(palabra):
     puntaje_total = 0
     
     k = 0
@@ -21,10 +21,10 @@ def calculcarPuntajePalabra(palabra):
         
     return puntaje_total
             
-def calcularPuntajeListaPalabras(listaPalabrasClave):
+def calcular_puntaje_lista_palabra(listaPalabrasClave):
     puntaje_total = 0
     
     for i in range(len(listaPalabrasClave)):
-        puntaje_total += calculcarPuntajePalabra(listaPalabrasClave[i])
+        puntaje_total += calcular_puntaje_palabra(listaPalabrasClave[i])
             
     return puntaje_total

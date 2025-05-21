@@ -1,15 +1,15 @@
-from logica.manejo_archivo_preguntas import leerArchivoPreguntas, agregarPreguntaRespuestaAprendida
+from logica.manejo_archivo_preguntas import leer_archivo_preguntas
 from logica.manejo_archivo_preguntas import ruta_archivo_preguntas, ruta_archivo_preguntas_aprendidas
 from logica.puntaje import *
 
 from interfaces import interfaz_grafica, interfaz_consola
 
-def almacenarPreguntasEnMemoria(ruta_archivo_preguntas, ruta_archivo_preguntas_aprendidas):
+def almacenar_preguntas_en_memoria(ruta_archivo_preguntas, ruta_archivo_preguntas_aprendidas):
     # Guarda en memoria las preguntas originales
-    preguntas_almacenadas = leerArchivoPreguntas(ruta_archivo_preguntas)
+    preguntas_almacenadas = leer_archivo_preguntas(ruta_archivo_preguntas)
 
     # Intenta agregar preguntas aprendidas en sesiones anteriores
-    preguntas_aprendidas = leerArchivoPreguntas(ruta_archivo_preguntas_aprendidas) # Matriz de preguntas aprendidas
+    preguntas_aprendidas = leer_archivo_preguntas(ruta_archivo_preguntas_aprendidas) # Matriz de preguntas aprendidas
     if preguntas_aprendidas != False: # Solo puede ser falso en caso de que no se haya encontrado el archivo con preguntas aprendidas
         for i in range (0, len(preguntas_aprendidas)):
             preguntas_almacenadas.append(preguntas_aprendidas[i]) # Agrega al final de preguntas_almacenadas la pregunta-respuesta aprendida
@@ -18,7 +18,7 @@ def almacenarPreguntasEnMemoria(ruta_archivo_preguntas, ruta_archivo_preguntas_a
     for i in range(0, len(preguntas_almacenadas)):
         palabras_clave = preguntas_almacenadas[i][0].split()
         preguntas_almacenadas[i].append(palabras_clave)
-        preguntas_almacenadas[i].append(calcularPuntajeListaPalabras(palabras_clave))
+        preguntas_almacenadas[i].append(calcular_puntaje_lista_palabra(palabras_clave))
         
     return preguntas_almacenadas
     
@@ -36,7 +36,7 @@ def almacenarPreguntasEnMemoria(ruta_archivo_preguntas, ruta_archivo_preguntas_a
 def main():
     nombre_chatbot = "Periferic"
 
-    preguntas_almacenadas = almacenarPreguntasEnMemoria(ruta_archivo_preguntas, ruta_archivo_preguntas_aprendidas)
+    preguntas_almacenadas = almacenar_preguntas_en_memoria(ruta_archivo_preguntas, ruta_archivo_preguntas_aprendidas)
 
     print("Seleccione la interfaz que quiera utilizar:\n")
     print("1. Interfaz gráfica")

@@ -17,12 +17,14 @@ def buscar_pregunta_exacta(pregunta, preguntas_almacenadas):
         if pregunta == preguntas_almacenadas[i][0]:
             return {
                 "contenido_respuesta": preguntas_almacenadas[i][1],
+                "pregunta_usuario": False,
                 "porcentaje_similitud": False, # No se utiliza
-                "cantidad_palabras_usuario": False # No se utiliza
+                "cantidad_palabras_usuario": False, # No se utiliza
             }
         else:
             return {
                 "contenido_respuesta": False,
+                "pregunta_usuario": False,
                 "porcentaje_similitud": False, # No se utiliza
                 "cantidad_palabras_usuario": False # No se utiliza
             }
@@ -39,7 +41,7 @@ def buscar_pregunta_similar(pregunta, preguntas_almacenadas):
     # solo lo hace la pregunta almacenada con la que esta siendo comparada
     puntaje_palabras_usuario = [] 
     for i in range (0, len(palabras_clave_usuario)):
-        puntaje_palabras_usuario.append(calculcarPuntajePalabra(palabras_clave_usuario[i]))
+        puntaje_palabras_usuario.append(calcular_puntaje_palabra(palabras_clave_usuario[i]))
     
     porcentaje_actual = 0.0
     porcentaje_mayor = 0.0
@@ -81,12 +83,14 @@ def buscar_pregunta_similar(pregunta, preguntas_almacenadas):
     if porcentaje_mayor >= 0.75:
         return {
             "contenido_respuesta": preguntas_almacenadas[index_porcentaje_mayor][1],
+            "pregunta_usuario": False,
             "porcentaje_similitud": round(porcentaje_mayor*100, 2),
             "cantidad_palabras_usuario": len(palabras_clave_usuario)
         }
     else:
         return {
             "contenido_respuesta": False, # False porque no se encontro
+            "pregunta_usuario": pregunta,
             "porcentaje_similitud": round(porcentaje_mayor*100, 2),
             "cantidad_palabras_usuario": len(palabras_clave_usuario) # Cantidad de palabras de la pregunta del usuario
         }

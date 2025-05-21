@@ -53,7 +53,7 @@ datos = [
 
 # Funciones
 
-def calcularSha256(ruta_archivo):
+def calcular_sha_256(ruta_archivo):
     sha256 = "0" # Inicializo variable local
     try:
         with open(ruta_archivo, "rb") as f: # Abre el archivo en read only y en binario
@@ -64,7 +64,7 @@ def calcularSha256(ruta_archivo):
         sha256 = "0"
     return sha256
 
-def escribirArchivoPreguntas():
+def escribir_archivo_preguntas():
     print("Se esta generando el archivo '" + ruta_archivo_preguntas + "'")
     
     try:
@@ -96,14 +96,14 @@ def escribirArchivoPreguntas():
         print("Ocurrio un error con la escritura del archivo:", e)
         sys.exit(1) # Se finaliza el programa si ocurre un error
 
-def leerArchivoPreguntas(ruta_archivo):
+def leer_archivo_preguntas(ruta_archivo):
     # La funcion devuele los datos cargados en una matriz para poder ser utilizados directamente desde la memoria
     
     if ruta_archivo == ruta_archivo_preguntas:
         # Se escribe/crea el archivo si no existe o su contenido no es correcto
-        if calcularSha256(ruta_archivo_preguntas) != sha256_correcto:
+        if calcular_sha_256(ruta_archivo_preguntas) != sha256_correcto:
             print("El archivo con las preguntas no existe en el directorio o su contenido no es correcto")
-            escribirArchivoPreguntas()
+            escribir_archivo_preguntas()
         
     # Lectura
     try:
@@ -131,14 +131,12 @@ def leerArchivoPreguntas(ruta_archivo):
         print("Ocurrio un error con la lectura del archivo:", e)
         sys.exit(1) # Se finaliza el programa si ocurre un error
 
-def agregarPreguntaRespuestaAprendida(pregunta, respuesta):
+def agregar_pregunta_respuesta_aprendida(pregunta, respuesta):
     # La funcion devuelve True si escribio correctamente los datos
     
     try:
         with open(ruta_archivo_preguntas_aprendidas, "a", encoding="utf-8") as archivo: # Abre el archivo en append mode (Escribe al final del arhivo)
             archivo.write(f"{pregunta};{respuesta}\n")
-        print("\nNueva pregunta-respuesta guardada correctamente.")
-        print("¡Gracias! He aprendido algo nuevo.\n")
         return True
     except Exception as e:
         print("\nError al guardar la nueva pregunta:", e)
