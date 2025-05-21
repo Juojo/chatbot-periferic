@@ -33,25 +33,27 @@ def almacenarPreguntasEnMemoria(ruta_archivo_preguntas, ruta_archivo_preguntas_a
     # Entonces, si se quiere saber cual es la respuesta de la tercer preguta se hace: preguntas_almacenadas[2][1]
     # Y si se quisiera obtener la primer palabra de la lista de palabras claves: preguntas_almacenadas[2][2][0]
 
-# <-- Inicio del programa -->
+def main():
+    nombre_chatbot = "Periferic"
 
-nombre_chatbot = "Periferic"
+    preguntas_almacenadas = almacenarPreguntasEnMemoria(ruta_archivo_preguntas, ruta_archivo_preguntas_aprendidas)
 
-preguntas_almacenadas = almacenarPreguntasEnMemoria(ruta_archivo_preguntas, ruta_archivo_preguntas_aprendidas)
+    print("Seleccione la interfaz que quiera utilizar:\n")
+    print("1. Interfaz gráfica")
+    print("2. Interfaz por consola (Recomendada solo para desarrollo)")
+    print("\nOpcion seleccionada: ", end="")
 
-print("Seleccione la interfaz que quiera utilizar:\n")
-print("1. Interfaz gráfica")
-print("2. Interfaz por consola (Recomendada solo para desarrollo)")
-print("\nOpcion seleccionada: ", end="")
+    interfaz_seleccionada = int(input())
 
-interfaz_seleccionada = int(input())
-
-while interfaz_seleccionada < 1 or interfaz_seleccionada > 2:
-    print("La opcion seleccionada es incorrecta.")
-    interfaz_seleccionada = int(input("Seleccione otra opcion: "))
+    while interfaz_seleccionada < 1 or interfaz_seleccionada > 2:
+        print("La opcion seleccionada es incorrecta.")
+        interfaz_seleccionada = int(input("Seleccione otra opcion: "))
+        
+    if interfaz_seleccionada == 1:
+        interfaz_grafica.ejecutar(preguntas_almacenadas, nombre_chatbot)
+    elif interfaz_seleccionada == 2:
+        interfaz_consola.ejecutar(preguntas_almacenadas, nombre_chatbot)
     
-if interfaz_seleccionada == 1:
-    interfaz_grafica.ejecutar(preguntas_almacenadas, nombre_chatbot)
-elif interfaz_seleccionada == 2:
-    interfaz_consola.ejecutar(preguntas_almacenadas, nombre_chatbot)
+if __name__ == "__main__":
+    main()
     
