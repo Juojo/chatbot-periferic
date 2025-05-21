@@ -1,11 +1,10 @@
 import hashlib, sys
-import util
-from util import *
+from logica.util import *
 
 # Variables
 
-ruta_archivo_preguntas = "./preguntas.csv";
-ruta_archivo_preguntas_aprendidas = "./preguntasAprendidas.csv";
+ruta_archivo_preguntas = "./informacion_almacenada/preguntas.csv";
+ruta_archivo_preguntas_aprendidas = "./informacion_almacenada/preguntasAprendidas.csv";
 sha256_correcto = "4c7bd677dfdd9418b153e8682f70a24dbe867367af13863ee2db7dc1fab58e58"
 
 campos = ["Pregunta", "Respuesta"]
