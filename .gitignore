@@ -1,3 +1,6 @@
-preguntas.csv
-preguntasAprendidas.csv
+informacion_almacenada/preguntas.csv
+informacion_almacenada/preguntasAprendidas.csv
+informacion_almacenada/log.txt
 __pycache__
+logica/__pycache__
+.venv

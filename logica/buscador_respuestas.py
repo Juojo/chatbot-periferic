@@ -18,14 +18,14 @@ def buscar_pregunta_exacta(pregunta, preguntas_almacenadas):
             return {
                 "contenido_respuesta": preguntas_almacenadas[i][1],
                 "pregunta_usuario": False,
-                "porcentaje_similitud": False, # No se utiliza
+                "porcentaje_similitud": 1*100,
                 "cantidad_palabras_usuario": False, # No se utiliza
             }
         else:
             return {
                 "contenido_respuesta": False,
                 "pregunta_usuario": False,
-                "porcentaje_similitud": False, # No se utiliza
+                "porcentaje_similitud": 0*100,
                 "cantidad_palabras_usuario": False # No se utiliza
             }
         

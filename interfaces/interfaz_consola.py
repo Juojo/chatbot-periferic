@@ -7,6 +7,7 @@ from logica.manejo_archivo_logs import guardarLog
 
 
 def mostrar_presentacion_chatbot(nombre_chatbot):
+    input(cambiarColor("Presioná Enter para continuar...\n", "rojo"))
     print("\nHola mi nombre es", cambiarColor(nombre_chatbot, "rojo"), "se mucho sobre perifericos y me encataria resolver cualquier duda que tengas relacionada a este tema.\n")
 
 def mostrar_fin_programa(nombre_usuario):
@@ -54,7 +55,7 @@ def mostrar_respuesta(respuesta, nombre_chatbot, nombre_usuario, preguntas_almac
     if respuesta["contenido_respuesta"] == False: # Es falsa solo si no se encontro respuesta
         texto_disculpa = "Disculpame, no tengo respuesta a tu pregunta."
         print(cambiarColor("Respuesta de " + nombre_chatbot + ":", "amarillo"), texto_disculpa, "\n")
-        guardarLog("consola", texto_disculpa, nombre_usuario) # Se guarda la respuesta de la consola en el log.
+        guardarLog("consola", texto_disculpa, nombre_usuario, respuesta["porcentaje_similitud"]) # Se guarda la respuesta de la consola en el log.
 
         if respuesta["cantidad_palabras_usuario"] >= 10:
             mostrar_advertencia_pregunta_larga(nombre_usuario)
@@ -62,7 +63,7 @@ def mostrar_respuesta(respuesta, nombre_chatbot, nombre_usuario, preguntas_almac
         mostrar_ingresar_enseniar(respuesta["pregunta_usuario"], preguntas_almacenadas)
     else: # Caso contrario se encontro una respuesta
         print(cambiarColor("Respuesta de " + nombre_chatbot + ": ", "amarillo") + respuesta["contenido_respuesta"], end="")
-        guardarLog("consola", respuesta["contenido_respuesta"], nombre_usuario) # Se guarda la respuesta de la consola en el log.
+        guardarLog("consola", respuesta["contenido_respuesta"], nombre_usuario, respuesta["porcentaje_similitud"]) # Se guarda la respuesta de la consola en el log.
 
 
 def ejecutar(preguntas_almacenadas, nombre_chatbot):

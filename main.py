@@ -37,22 +37,25 @@ def main():
     nombre_chatbot = "Periferic"
 
     preguntas_almacenadas = almacenar_preguntas_en_memoria(ruta_archivo_preguntas, ruta_archivo_preguntas_aprendidas)
+    
+    interfaz_grafica.ejecutar(preguntas_almacenadas, nombre_chatbot)
+    #interfaz_consola.ejecutar(preguntas_almacenadas, nombre_chatbot)
 
-    print("Seleccione la interfaz que quiera utilizar:\n")
-    print("1. Interfaz gráfica")
-    print("2. Interfaz por consola (Recomendada solo para desarrollo)")
-    print("\nOpcion seleccionada: ", end="")
-
-    interfaz_seleccionada = int(input())
-
-    while interfaz_seleccionada < 1 or interfaz_seleccionada > 2:
-        print("La opcion seleccionada es incorrecta.")
-        interfaz_seleccionada = int(input("Seleccione otra opcion: "))
-        
-    if interfaz_seleccionada == 1:
-        interfaz_grafica.ejecutar(preguntas_almacenadas, nombre_chatbot)
-    elif interfaz_seleccionada == 2:
-        interfaz_consola.ejecutar(preguntas_almacenadas, nombre_chatbot)
+#     print("Seleccione la interfaz que quiera utilizar:\n")
+#     print("1. Interfaz gráfica")
+#     print("2. Interfaz por consola (Recomendada solo para desarrollo)")
+#     print("\nOpcion seleccionada: ", end="")
+# 
+#     interfaz_seleccionada = int(input())
+# 
+#     while interfaz_seleccionada < 1 or interfaz_seleccionada > 2:
+#         print("La opcion seleccionada es incorrecta.")
+#         interfaz_seleccionada = int(input("Seleccione otra opcion: "))
+#         
+#     if interfaz_seleccionada == 1:
+#         interfaz_grafica.ejecutar(preguntas_almacenadas, nombre_chatbot)
+#     elif interfaz_seleccionada == 2:
+#         interfaz_consola.ejecutar(preguntas_almacenadas, nombre_chatbot)
     
 if __name__ == "__main__":
     main()

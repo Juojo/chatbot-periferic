@@ -1,38 +1,42 @@
 from datetime import datetime
 
-fecha_hora = datetime.now().strftime("%d-%m-%Y_%H-%M-%S")
-
-ruta_archivo_logs = f"./informacion_almacenada/logs_historial/conversacion_{fecha_hora}.log";
+ruta_archivo_conversacion = "./informacion_almacenada/log.txt"
 
 def generarArchivoLog():
-    print("Se esta generando el archivo '" + ruta_archivo_logs + "'")
-
     try:
-        with open(ruta_archivo_logs, "w", encoding="utf-8", newline="\n") as archivo: # Crea el archivo con permisos de escritura
-            fecha_hora_mostrada = fecha_hora
-            archivo.write(f"Log creado el {fecha_hora_mostrada}\n\n")
+        # Intenta crear el archivo solo la primera vez
+        with open(ruta_archivo_conversacion, "x", encoding="utf-8", newline="\n") as archivo:
+            fecha_hora = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
+            archivo.write(f"Log de la sesion: {fecha_hora}\n\n")
+    except FileExistsError:
+        # Si ya existe, abrimos en modo append y escribimos nueva sesión
+        with open(ruta_archivo_conversacion, "a", encoding="utf-8", newline="\n") as archivo:
+            fecha_hora = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
+            archivo.write(f"\n\nLog de la sesion: {fecha_hora}\n\n")
+    except FileNotFoundError:
+        print("El directorio './informacion_almacenada' no existe. Créalo manualmente antes de ejecutar.")
     except Exception as e:
-        print("\nError con la generación de conversacion.log:", e)
+        print("Error al manejar log.txt:", e)
 
-def guardarLog(emisor, texto, nombre_usuario):
+def guardarLog(emisor, texto, nombre_usuario, porcentaje_similitud=0):
     nombre = nombre_usuario
     prefix_log = datetime.now().strftime("[%d-%m-%Y %H:%M:%S]")
     if emisor == "consola":
-        registro_txt = str(prefix_log) + " [Consola] " + texto
+        registro_txt = str(prefix_log) + " [Periferic] [Porcentaje de similitud: " + str(porcentaje_similitud) + "% ] " + texto
         try:
-            with open(ruta_archivo_logs, "a", encoding="utf-8") as archivo: # Abre el archivo en append mode (Escribe al final del arhivo)
+            with open(ruta_archivo_conversacion, "a", encoding="utf-8") as archivo: # Abre el archivo en append mode (Escribe al final del arhivo)
                 archivo.write(registro_txt + "\n")
             return True
         except Exception as e:
-            print("\nError con la generacion de conversacion.log:", e)
+            print("\nError con la generacion de log.txt:", e)
         return False
     elif emisor == "user":
         registro_txt = str(prefix_log) + f" [Usuario: {nombre}] " + texto
         try:
-            with open(ruta_archivo_logs, "a", encoding="utf-8") as archivo: # Abre el archivo en append mode (Escribe al final del arhivo)
+            with open(ruta_archivo_conversacion, "a", encoding="utf-8") as archivo: # Abre el archivo en append mode (Escribe al final del arhivo)
                 archivo.write(registro_txt + "\n")
             return True
         except Exception as e:
-            print("\nError con la generacion de conversacion.log:", e)
+            print("\nError con la generacion de log.txt:", e)
     else:
-        return print("\nError con la generacion de conversacion.log (emisor incorrecto).")
+        return print("\nError con la generacion de log.txt (emisor incorrecto).")
