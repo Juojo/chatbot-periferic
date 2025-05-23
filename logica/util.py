@@ -1,5 +1,8 @@
 import re
 import unicodedata
+import snowballstemmer
+
+stemmer = snowballstemmer.stemmer('spanish');
 
 def normalizar(texto):
     texto = texto.lower()
@@ -26,4 +29,6 @@ def cambiarColor(texto, color):
 
     return ("\033[" + str(codigo_color) + "m" + texto + "\033[0m")
 
-
+def stemizar(texto):
+    palabras_stemizadas = stemmer.stemWords(texto.split()); # Aplica stemizacion al texto y lo separa con split
+    return " ".join(palabras_stemizadas) # Junta las palabras y las devuelve como un texto stemizado

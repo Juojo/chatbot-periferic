@@ -8,7 +8,7 @@ from logica.manejo_archivo_logs import guardarLog
 
 def mostrar_presentacion_chatbot(nombre_chatbot):
     input(cambiarColor("Presioná Enter para continuar...\n", "rojo"))
-    print("\nHola mi nombre es", cambiarColor(nombre_chatbot, "rojo"), "se mucho sobre perifericos y me encataria resolver cualquier duda que tengas relacionada a este tema.\n")
+    print("Hola mi nombre es", cambiarColor(nombre_chatbot, "rojo"), "se mucho sobre perifericos y me encataria resolver cualquier duda que tengas relacionada a este tema.\n")
 
 def mostrar_fin_programa(nombre_usuario):
     print("Gracias", cambiarColor(nombre_usuario, "verde"), "por utilizar nuestro chatbot.")
@@ -24,6 +24,7 @@ def ingresar_pregunta_usuario(nombre_usuario):
     print(cambiarColor("\nIngrese su pregunta", "amarillo"), "(o escriba", cambiarColor("'salir'", "rojo"), "si ya no tiene mas preguntas): ",  end="")
     pregunta = input()
     pregunta = normalizar(pregunta)
+    pregunta = stemizar(pregunta)
     guardarLog("user", pregunta, nombre_usuario) # Se guarda la pregunta del usuario en el log.
     
     return pregunta
@@ -47,7 +48,7 @@ def mostrar_ingresar_enseniar(pregunta_usuario, preguntas_almacenadas):
             print("\nNueva pregunta-respuesta guardada correctamente.")
             print("¡Gracias! He aprendido algo nuevo.")
             # También actualizar la lista en memoria
-            preguntas_almacenadas.append((pregunta_usuario, nueva_respuesta + "\n", pregunta_usuario.split(), calcular_puntaje_lista_palabra(pregunta_usuario.split())))
+            preguntas_almacenadas.append((stemizar(pregunta_usuario), nueva_respuesta + "\n", pregunta_usuario.split(), calcular_puntaje_lista_palabra(pregunta_usuario.split())))
     else:
         print("Está bien, no hay problema. Si más adelante querés enseñarmela, avisame :)\n")
 
@@ -74,7 +75,7 @@ def ejecutar(preguntas_almacenadas, nombre_chatbot):
     generarArchivoLog() # Generamos el archivo log para que empiece a guardar la interaccion del usuario con el bot.
     pregunta_usuario = ingresar_pregunta_usuario(nombre_usuario)
 
-    while pregunta_usuario != "salir":
+    while pregunta_usuario != stemizar("salir"):
         respuesta = obtener_respuesta(pregunta_usuario, preguntas_almacenadas) # Se busca la respuesta
         mostrar_respuesta(respuesta, nombre_chatbot, nombre_usuario, preguntas_almacenadas) # Se muestra por pantalla
         

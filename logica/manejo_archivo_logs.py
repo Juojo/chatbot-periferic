@@ -22,7 +22,7 @@ def guardarLog(emisor, texto, nombre_usuario, porcentaje_similitud=0):
     nombre = nombre_usuario
     prefix_log = datetime.now().strftime("[%d-%m-%Y %H:%M:%S]")
     if emisor == "consola":
-        registro_txt = str(prefix_log) + " [Periferic] [Porcentaje de similitud: " + str(porcentaje_similitud) + "% ] " + texto
+        registro_txt = str(prefix_log) + " [Periferic] [Porcentaje de similitud: " + str(porcentaje_similitud) + "%] " + texto
         try:
             with open(ruta_archivo_conversacion, "a", encoding="utf-8") as archivo: # Abre el archivo en append mode (Escribe al final del arhivo)
                 archivo.write(registro_txt + "\n")

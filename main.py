@@ -38,8 +38,8 @@ def main():
 
     preguntas_almacenadas = almacenar_preguntas_en_memoria(ruta_archivo_preguntas, ruta_archivo_preguntas_aprendidas)
     
-    interfaz_grafica.ejecutar(preguntas_almacenadas, nombre_chatbot)
-    #interfaz_consola.ejecutar(preguntas_almacenadas, nombre_chatbot)
+    #interfaz_grafica.ejecutar(preguntas_almacenadas, nombre_chatbot)
+    interfaz_consola.ejecutar(preguntas_almacenadas, nombre_chatbot)
 
 #     print("Seleccione la interfaz que quiera utilizar:\n")
 #     print("1. Interfaz gráfica")
