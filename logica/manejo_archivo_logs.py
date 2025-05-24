@@ -25,7 +25,7 @@ def guardarLog(emisor, texto, nombre_usuario, porcentaje_similitud=0):
         registro_txt = str(prefix_log) + " [Periferic] [Porcentaje de similitud: " + str(porcentaje_similitud) + "%] " + texto
         try:
             with open(ruta_archivo_conversacion, "a", encoding="utf-8") as archivo: # Abre el archivo en append mode (Escribe al final del arhivo)
-                archivo.write(registro_txt + "\n")
+                archivo.write(registro_txt.rstrip() + "\n\n")
             return True
         except Exception as e:
             print("\nError con la generacion de log.txt:", e)
@@ -34,7 +34,7 @@ def guardarLog(emisor, texto, nombre_usuario, porcentaje_similitud=0):
         registro_txt = str(prefix_log) + f" [Usuario: {nombre}] " + texto
         try:
             with open(ruta_archivo_conversacion, "a", encoding="utf-8") as archivo: # Abre el archivo en append mode (Escribe al final del arhivo)
-                archivo.write(registro_txt + "\n")
+                archivo.write(registro_txt.rstrip() + "\n")
             return True
         except Exception as e:
             print("\nError con la generacion de log.txt:", e)

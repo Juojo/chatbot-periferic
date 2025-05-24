@@ -23,9 +23,11 @@ def preguntar_ingresar_nombre_usuario():
 def ingresar_pregunta_usuario(nombre_usuario):
     print(cambiarColor("\nIngrese su pregunta", "amarillo"), "(o escriba", cambiarColor("'salir'", "rojo"), "si ya no tiene mas preguntas): ",  end="")
     pregunta = input()
+ 
+    guardarLog("user", pregunta, nombre_usuario) # Se guarda la pregunta del usuario en el log.
+    
     pregunta = normalizar(pregunta)
     pregunta = stemizar(pregunta)
-    guardarLog("user", pregunta, nombre_usuario) # Se guarda la pregunta del usuario en el log.
     
     return pregunta
 
@@ -50,7 +52,7 @@ def mostrar_ingresar_enseniar(pregunta_usuario, preguntas_almacenadas):
             # También actualizar la lista en memoria
             preguntas_almacenadas.append((stemizar(pregunta_usuario), nueva_respuesta + "\n", pregunta_usuario.split(), calcular_puntaje_lista_palabra(pregunta_usuario.split())))
     else:
-        print("Está bien, no hay problema. Si más adelante querés enseñarmela, avisame :)\n")
+        print("Está bien, no hay problema. Si más adelante querés enseñarmela, avisame :)")
 
 def mostrar_respuesta(respuesta, nombre_chatbot, nombre_usuario, preguntas_almacenadas):
     if respuesta["contenido_respuesta"] == False: # Es falsa solo si no se encontro respuesta
