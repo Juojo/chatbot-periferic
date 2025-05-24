@@ -2,6 +2,7 @@ import re
 import unicodedata
 import snowballstemmer
 import difflib
+import os
 
 stemmer = snowballstemmer.stemmer('spanish');
 
@@ -55,3 +56,6 @@ def calcular_difflib(palabra1, palabra2):
         return True
     else:
         return False
+
+def limpiar_pantalla():
+    os.system('cls' if os.name == 'nt' else 'clear')

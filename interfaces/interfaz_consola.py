@@ -8,6 +8,7 @@ from logica.manejo_archivo_logs import guardarLog
 
 def mostrar_presentacion_chatbot(nombre_chatbot):
     input(cambiarColor("Presioná Enter para continuar...\n", "rojo"))
+    limpiar_pantalla()
     print("Hola mi nombre es", cambiarColor(nombre_chatbot, "rojo"), "se mucho sobre perifericos y me encataria resolver cualquier duda que tengas relacionada a este tema.\n")
 
 def mostrar_fin_programa(nombre_usuario):
@@ -116,7 +117,7 @@ def ejecutar(preguntas_almacenadas, nombre_chatbot):
     generarArchivoLog() # Generamos el archivo log para que empiece a guardar la interaccion del usuario con el bot.
     pregunta_usuario = ingresar_pregunta_usuario(nombre_usuario)
 
-    while pregunta_usuario != stemizar("salir"):
+    while pregunta_usuario["original"] != "salir":
         respuesta = obtener_respuesta(pregunta_usuario["normalizada_stemizada"], preguntas_almacenadas, pregunta_usuario["original"]) # Se busca la respuesta
         mostrar_respuesta(respuesta, nombre_chatbot, nombre_usuario, preguntas_almacenadas) # Se muestra por pantalla
         
