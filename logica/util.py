@@ -1,6 +1,7 @@
 import re
 import unicodedata
 import snowballstemmer
+import difflib
 
 stemmer = snowballstemmer.stemmer('spanish');
 
@@ -32,3 +33,23 @@ def cambiarColor(texto, color):
 def stemizar(texto):
     palabras_stemizadas = stemmer.stemWords(texto.split()); # Aplica stemizacion al texto y lo separa con split
     return " ".join(palabras_stemizadas) # Junta las palabras y las devuelve como un texto stemizado
+
+def calcular_difflib(palabra1, palabra2):
+    longitud_palabra = len(palabra1)
+    
+    if longitud_palabra <= 3:
+        similitud_minima = 0.65
+    elif longitud_palabra <= 6:
+        similitud_minima = 0.75
+    elif longitud_palabra <= 9:
+        similitud_minima = 0.80
+    else:
+        similitud_minima = 0.85
+    
+    
+    similitud_palabra = difflib.SequenceMatcher(None, palabra1, palabra2).ratio() # Calcula que tan parecidas son las palabras
+    
+    if similitud_palabra > similitud_minima:
+        return True
+    else:
+        return False

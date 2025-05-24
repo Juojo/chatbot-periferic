@@ -1,4 +1,5 @@
 from logica.puntaje import *
+from logica.util import *
 
 def obtener_respuesta(pregunta, preguntas_almacenadas):
     respuesta = buscar_pregunta_exacta(pregunta, preguntas_almacenadas)
@@ -59,8 +60,8 @@ def buscar_pregunta_similar(pregunta, preguntas_almacenadas):
             
             # Itera sobre lista palabras claves almacenadas, siempre y cuando no se haya encontrado una similitud
             while k < len(palabras_clave_pregunta_almacenada) and similitud_encontrada == False:
-                # Si encuentra similitud
-                if palabras_clave_usuario[j] == palabras_clave_pregunta_almacenada[k]:
+                # Se busca que la palabra sea identica o que pase el calculo de difflib
+                if palabras_clave_usuario[j] == palabras_clave_pregunta_almacenada[k] or calcular_difflib(palabras_clave_usuario[j], palabras_clave_pregunta_almacenada[k]):
                     puntaje += puntaje_palabras_usuario[j] # Suma puntaje
                     palabras_clave_pregunta_almacenada.pop(k) # Elimina el elemento encontrado para que no matchee otra vez
                     similitud_encontrada = True # Sale del while
