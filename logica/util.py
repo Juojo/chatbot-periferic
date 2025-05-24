@@ -37,6 +37,7 @@ def stemizar(texto):
 def calcular_difflib(palabra1, palabra2):
     longitud_palabra = len(palabra1)
     
+    # Se toma en cuenta la longitud de la palabra para setear el minimo permitido
     if longitud_palabra <= 3:
         similitud_minima = 0.65
     elif longitud_palabra <= 6:
@@ -46,9 +47,10 @@ def calcular_difflib(palabra1, palabra2):
     else:
         similitud_minima = 0.85
     
+    # Se hace el calculo de que tan parecidas son las palabras
+    similitud_palabra = difflib.SequenceMatcher(None, palabra1, palabra2).ratio()
     
-    similitud_palabra = difflib.SequenceMatcher(None, palabra1, palabra2).ratio() # Calcula que tan parecidas son las palabras
-    
+    # Si la similitud es mayor a la minima permitida se devuelve True, caso contrario False
     if similitud_palabra > similitud_minima:
         return True
     else:
