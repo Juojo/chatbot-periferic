@@ -1,3 +1,4 @@
+# Solo hace falta instalar flet y snowballstemmer. El resto se instalan solas.
 anyio==4.9.0
 certifi==2025.4.26
 flet==0.28.3
