@@ -26,8 +26,7 @@ def ingresar_pregunta_usuario(nombre_usuario):
  
     guardarLog("user", pregunta, nombre_usuario) # Se guarda la pregunta del usuario en el log.
     
-    pregunta_normalizada_stemizada = normalizar(pregunta)
-    pregunta_normalizada_stemizada = stemizar(pregunta)
+    pregunta_normalizada_stemizada = stemizar(normalizar(pregunta))
     
     return {
         "normalizada_stemizada": pregunta_normalizada_stemizada,
