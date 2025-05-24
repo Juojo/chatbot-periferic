@@ -109,7 +109,13 @@ def buscar_pregunta_similar(pregunta, preguntas_almacenadas, pregunta_original):
             "cantidad_palabras_usuario": len(palabras_clave_usuario)
         }
     else:
-        # Agregar pregunta default si el porcentaje de similitud es cero
+        # Si el porcentaje de similitud es cero, se usan preguntas default
+        if porcentajes_mayores[0] == 0:
+            index_porcentajes_mayores[0] = 1
+        if porcentajes_mayores[1] == 0:
+            index_porcentajes_mayores[1] = 2
+        if porcentajes_mayores[2] == 0:
+            index_porcentajes_mayores[2] = 3
         return {
             # Lista de las 3 mejores respuestas sugeridas
             "respuestas":
