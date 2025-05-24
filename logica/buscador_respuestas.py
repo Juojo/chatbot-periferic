@@ -45,8 +45,8 @@ def buscar_pregunta_similar(pregunta, preguntas_almacenadas):
         puntaje_palabras_usuario.append(calcular_puntaje_palabra(palabras_clave_usuario[i]))
     
     porcentaje_actual = 0.0
-    porcentaje_mayor = 0.0
-    index_porcentaje_mayor = 0
+    porcentajes_mayores = [0.0, 0.0, 0.0]
+    index_porcentajes_mayores = [-1, -1, -1]
     
     # Itera sobre todas las preguntas almacenadas y calcula el porcentaje de similitud para cada una
     for i in range (0, len(preguntas_almacenadas)):
@@ -75,23 +75,62 @@ def buscar_pregunta_similar(pregunta, preguntas_almacenadas):
             # Se divide el puntaje sumado entre el puntaje maximo posible de la pregunta
             porcentaje_actual = puntaje / preguntas_almacenadas[i][3] # Devuelve un valor entre 0.0 y 1.0
             
-            # Actualiza porcentaje_mayor e index
-            if porcentaje_actual > porcentaje_mayor:
-                porcentaje_mayor = porcentaje_actual
-                index_porcentaje_mayor = i
+            # Actualiza los porcentajes_mayores y sus respectivos index
+            if porcentaje_actual > porcentajes_mayores[0]:
+                porcentajes_mayores[0] = porcentaje_actual
+                index_porcentajes_mayores[0] = i
+                
+            elif porcentaje_actual > porcentajes_mayores[1]:
+                porcentajes_mayores[1] = porcentaje_actual
+                index_porcentajes_mayores[1] = i
+                
+            elif porcentaje_actual > porcentajes_mayores[2]:
+                porcentajes_mayores[2] = porcentaje_actual
+                index_porcentajes_mayores[2] = i
                 
     # Solo se considera que la pregunta fue encontrada si supera este valor
-    if porcentaje_mayor >= 0.75:
+    if porcentajes_mayores[0] >= 0.75: # Si el porcentaje mayor supera el minimo permitido
         return {
-            "contenido_respuesta": preguntas_almacenadas[index_porcentaje_mayor][1],
+            "respuestas":
+            [
+                preguntas_almacenadas[index_porcentajes_mayores[0]][1]
+            ],
             "pregunta_usuario": False,
-            "porcentaje_similitud": round(porcentaje_mayor*100, 2),
+            "porcentajes_similitud": [round(porcentajes_mayores[0]*100, 2)],
             "cantidad_palabras_usuario": len(palabras_clave_usuario)
         }
     else:
+        sugerencia1 = preguntas_almacenadas[index_porcentajes_mayores[0]][0]
+        sugerencia2 = preguntas_almacenadas[index_porcentajes_mayores[1]][0]
+        sugerencia3 = preguntas_almacenadas[index_porcentajes_mayores[2]][0]
+        
+#         print(sugerencia1, porcentajes_mayores[0])
+#         print(sugerencia2, porcentajes_mayores[1])
+#         print(sugerencia3, porcentajes_mayores[2])
         return {
-            "contenido_respuesta": False, # False porque no se encontro
-            "pregunta_usuario": pregunta,
-            "porcentaje_similitud": round(porcentaje_mayor*100, 2),
-            "cantidad_palabras_usuario": len(palabras_clave_usuario) # Cantidad de palabras de la pregunta del usuario
+            # Lista de las 3 mejores respuestas sugeridas
+            "respuestas":
+            [
+                preguntas_almacenadas[index_porcentajes_mayores[0]][1],
+                preguntas_almacenadas[index_porcentajes_mayores[1]][1],
+                preguntas_almacenadas[index_porcentajes_mayores[2]][1]
+            ],
+            # Se usan para el print de preguntas sugeridas
+            "preguntas_sugerencia":
+            [
+                preguntas_almacenadas[index_porcentajes_mayores[0]][0],
+                preguntas_almacenadas[index_porcentajes_mayores[1]][0],
+                preguntas_almacenadas[index_porcentajes_mayores[2]][0]
+            ],
+            # Se usan para el print de preguntas sugeridas
+            "porcentajes_similitud":
+            [
+                round(porcentajes_mayores[0]*100, 2),
+                round(porcentajes_mayores[1]*100, 2),
+                round(porcentajes_mayores[2]*100, 2)
+            ],
+            # Se usa para guardar la pregunta del usuario en caso de ser aprendida
+            "enseniar_pregunta_usuario": pregunta,
+            # Se usa para mostrar advertencia en caso de escribir muchas palabras y no encontrar respuesta
+            "cantidad_palabras_usuario": len(palabras_clave_usuario)
         }

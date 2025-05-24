@@ -29,6 +29,7 @@ def almacenar_preguntas_en_memoria(ruta_archivo_preguntas, ruta_archivo_pregunta
     # (1) Respuesta,
     # (2) Lista de palabras clave,
     # (3) Puntaje numerico total de la lista de palabras clave
+    # (4) Pregunta original
     
     # Entonces, si se quiere saber cual es la respuesta de la tercer preguta se hace: preguntas_almacenadas[2][1]
     # Y si se quisiera obtener la primer palabra de la lista de palabras claves: preguntas_almacenadas[2][2][0]
