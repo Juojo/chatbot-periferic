@@ -65,37 +65,38 @@ def mostrar_advertencia_pregunta_larga(nombre_usuario):
     print("De todos modos, capaz me estas preguntando algo que no sepa. Puedo aprender la pregunta que me hiciste si me decis la respuesta.")
 
 def mostrar_ingresar_menu_sugerencias(preguntas_sugeridas, porcentajes_similitudes, respuestas_sugeridas, pregunta_usuario, preguntas_almacenadas, nombre_chatbot, nombre_usuario):
-    print("Pero aca te dejo 3 sugerencias que creo que te pueden servir:\n")
+    print(f"Pero aca te dejo {cambiarColor("3 sugerencias", "amarillo")} que creo que te pueden servir:\n")
     
-    print(f"1: ({porcentajes_similitudes[0]}% de similitud) {preguntas_sugeridas[0]}")
-    print(f"2: ({porcentajes_similitudes[1]}% de similitud) {preguntas_sugeridas[1]}")
-    print(f"3: ({porcentajes_similitudes[2]}% de similitud) {preguntas_sugeridas[2]}")
+    print(f"{cambiarColor("1:", "amarillo")} ({cambiarColor(str(porcentajes_similitudes[0]) + "%", "azul")} de similitud) {preguntas_sugeridas[0]}")
+    print(f"{cambiarColor("2:", "amarillo")} ({cambiarColor(str(porcentajes_similitudes[1]) + "%", "azul")} de similitud) {preguntas_sugeridas[1]}")
+    print(f"{cambiarColor("3:", "amarillo")} ({cambiarColor(str(porcentajes_similitudes[2]) + "%", "azul")} de similitud) {preguntas_sugeridas[2]}")
 
     print("\nSi ninguna de las sugerencias es adecuada a tu pregunta, tambien me podes enseñar la respuesta\n")
 
-    print("4: Enseñar la respuesta")
-    print("5: Hacer otra pregunta\n")
-    
-    print("Opcion seleccionada: ", end="")
-    opcion = int(input())
+    print(f"{cambiarColor("4:", "amarillo")} Enseñar la respuesta")
+    print(f"{cambiarColor("5:", "amarillo")} Hacer otra pregunta\n")
 
-    while opcion < 1 or opcion > 5:
-        print("La opcion seleccionada es incorrecta.")
-        opcion = int(input("Seleccione otra opcion: "))
-        
-    if opcion == 1:
-        print(cambiarColor("Respuesta de " + nombre_chatbot + ": ", "amarillo") + respuestas_sugeridas[0])
-        guardarLog("consola", ("(Respuesta sugerida) " + respuestas_sugeridas[0]), nombre_usuario, porcentajes_similitudes[0])
-    elif opcion == 2:
-        print(cambiarColor("Respuesta de " + nombre_chatbot + ": ", "amarillo") + respuestas_sugeridas[1])
-        guardarLog("consola", ("(Respuesta sugerida) " + respuestas_sugeridas[1]), nombre_usuario, porcentajes_similitudes[1])
-    elif opcion == 3:
-        print(cambiarColor("Respuesta de " + nombre_chatbot + ": ", "amarillo") + respuestas_sugeridas[2])
-        guardarLog("consola", ("(Respuesta sugerida) " + respuestas_sugeridas[2]), nombre_usuario, porcentajes_similitudes[2])
-    elif opcion == 4:
-        ingresar_enseniar(pregunta_usuario, preguntas_almacenadas)
-    elif opcion == 5:
-        guardarLog("consola", "(No se encontro respuesta y el usuario no selecciono ninguna sugerencia)", nombre_usuario, 0)
+    opcion_incorrecta = True
+    while opcion_incorrecta == True:
+        opcion = input("Opcion seleccionada: ")
+
+        opcion_incorrecta = False
+        if opcion == "1":
+            print(cambiarColor("Respuesta de " + nombre_chatbot + ": ", "amarillo") + respuestas_sugeridas[0])
+            guardarLog("consola", ("(Respuesta sugerida) " + respuestas_sugeridas[0]), nombre_usuario, porcentajes_similitudes[0])
+        elif opcion == "2":
+            print(cambiarColor("Respuesta de " + nombre_chatbot + ": ", "amarillo") + respuestas_sugeridas[1])
+            guardarLog("consola", ("(Respuesta sugerida) " + respuestas_sugeridas[1]), nombre_usuario, porcentajes_similitudes[1])
+        elif opcion == "3":
+            print(cambiarColor("Respuesta de " + nombre_chatbot + ": ", "amarillo") + respuestas_sugeridas[2])
+            guardarLog("consola", ("(Respuesta sugerida) " + respuestas_sugeridas[2]), nombre_usuario, porcentajes_similitudes[2])
+        elif opcion == "4":
+            ingresar_enseniar(pregunta_usuario, preguntas_almacenadas)
+        elif opcion == "5":
+            guardarLog("consola", "(No se encontro respuesta y el usuario no selecciono ninguna sugerencia)", nombre_usuario, 0)
+        else:
+            print("La opcion seleccionada es incorrecta.")
+            opcion_incorrecta = True
     
 def ingresar_enseniar(pregunta_usuario, preguntas_almacenadas):
     nueva_respuesta = input("Por favor, escribí la respuesta: ")
@@ -106,7 +107,7 @@ def ingresar_enseniar(pregunta_usuario, preguntas_almacenadas):
         print("¡Gracias! He aprendido algo nuevo.")
         # También actualizar la lista en memoria
         pregunta_normalizada_stemizada = stemizar(normalizar(pregunta_usuario))
-        preguntas_almacenadas.append(pregunta_usuario, nueva_respuesta + "\n", pregunta_normalizada_stemizada, pregunta_normalizada_stemizada.split(), calcular_puntaje_lista_palabra(pregunta_normalizada_stemizada.split()))
+        preguntas_almacenadas.append((pregunta_usuario, nueva_respuesta + "\n", pregunta_normalizada_stemizada, pregunta_normalizada_stemizada.split(), calcular_puntaje_lista_palabra(pregunta_normalizada_stemizada.split())))
 
 def ejecutar(preguntas_almacenadas, nombre_chatbot):
     mostrar_presentacion_chatbot(nombre_chatbot)

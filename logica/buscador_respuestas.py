@@ -22,14 +22,20 @@ def buscar_pregunta_exacta(pregunta, preguntas_almacenadas):
                     preguntas_almacenadas[i][1]
                 ],
                 "pregunta_usuario": False,
-                "porcentajes_similitud": 1*100,
+                "porcentajes_similitud":
+                [
+                    1*100
+                ],
                 "cantidad_palabras_usuario": False, # No se utiliza
             }
         else:
             return {
                 "respuestas": False,
                 "pregunta_usuario": False,
-                "porcentajes_similitud": 0*100,
+                "porcentajes_similitud":
+                [
+                    0*100
+                ],
                 "cantidad_palabras_usuario": False # No se utiliza
             }
         
@@ -103,6 +109,7 @@ def buscar_pregunta_similar(pregunta, preguntas_almacenadas, pregunta_original):
             "cantidad_palabras_usuario": len(palabras_clave_usuario)
         }
     else:
+        # Agregar pregunta default si el porcentaje de similitud es cero
         return {
             # Lista de las 3 mejores respuestas sugeridas
             "respuestas":
