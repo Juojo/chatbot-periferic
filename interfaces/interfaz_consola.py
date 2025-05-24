@@ -26,10 +26,13 @@ def ingresar_pregunta_usuario(nombre_usuario):
  
     guardarLog("user", pregunta, nombre_usuario) # Se guarda la pregunta del usuario en el log.
     
-    pregunta = normalizar(pregunta)
-    pregunta = stemizar(pregunta)
+    pregunta_normalizada_stemizada = normalizar(pregunta)
+    pregunta_normalizada_stemizada = stemizar(pregunta)
     
-    return pregunta
+    return {
+        "normalizada_stemizada": pregunta_normalizada_stemizada,
+        "original": pregunta
+    }
 
 def mostrar_respuesta(respuesta, nombre_chatbot, nombre_usuario, preguntas_almacenadas):
     # Si solo se devolvio una respuesta
@@ -102,7 +105,8 @@ def ingresar_enseniar(pregunta_usuario, preguntas_almacenadas):
         print("\nNueva pregunta-respuesta guardada correctamente.")
         print("¡Gracias! He aprendido algo nuevo.")
         # También actualizar la lista en memoria
-        preguntas_almacenadas.append((stemizar(pregunta_usuario), nueva_respuesta + "\n", pregunta_usuario.split(), calcular_puntaje_lista_palabra(pregunta_usuario.split())))
+        pregunta_normalizada_stemizada = stemizar(normalizar(pregunta_usuario))
+        preguntas_almacenadas.append(pregunta_usuario, nueva_respuesta + "\n", pregunta_normalizada_stemizada, pregunta_normalizada_stemizada.split(), calcular_puntaje_lista_palabra(pregunta_normalizada_stemizada.split()))
 
 def ejecutar(preguntas_almacenadas, nombre_chatbot):
     mostrar_presentacion_chatbot(nombre_chatbot)
@@ -113,7 +117,7 @@ def ejecutar(preguntas_almacenadas, nombre_chatbot):
     pregunta_usuario = ingresar_pregunta_usuario(nombre_usuario)
 
     while pregunta_usuario != stemizar("salir"):
-        respuesta = obtener_respuesta(pregunta_usuario, preguntas_almacenadas) # Se busca la respuesta
+        respuesta = obtener_respuesta(pregunta_usuario["normalizada_stemizada"], preguntas_almacenadas, pregunta_usuario["original"]) # Se busca la respuesta
         mostrar_respuesta(respuesta, nombre_chatbot, nombre_usuario, preguntas_almacenadas) # Se muestra por pantalla
         
         pregunta_usuario = ingresar_pregunta_usuario(nombre_usuario) # El usuario ingresa una nueva pregunta

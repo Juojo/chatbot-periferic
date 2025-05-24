@@ -1,11 +1,11 @@
 from logica.puntaje import *
 from logica.util import *
 
-def obtener_respuesta(pregunta, preguntas_almacenadas):
+def obtener_respuesta(pregunta, preguntas_almacenadas, pregunta_original):
     respuesta = buscar_pregunta_exacta(pregunta, preguntas_almacenadas)
     
-    if respuesta["contenido_respuesta"] == False:
-        respuesta = buscar_pregunta_similar(pregunta, preguntas_almacenadas)
+    if respuesta["respuestas"] == False:
+        respuesta = buscar_pregunta_similar(pregunta, preguntas_almacenadas, pregunta_original)
     
     return respuesta
 
@@ -15,22 +15,25 @@ def buscar_pregunta_exacta(pregunta, preguntas_almacenadas):
     # Si no la encuentra devuelve False
     
     for i in range (0, len(preguntas_almacenadas)):
-        if pregunta == preguntas_almacenadas[i][0]:
+        if pregunta == preguntas_almacenadas[i][2]:
             return {
-                "contenido_respuesta": preguntas_almacenadas[i][1],
+                "respuestas":
+                [
+                    preguntas_almacenadas[i][1]
+                ],
                 "pregunta_usuario": False,
-                "porcentaje_similitud": 1*100,
+                "porcentajes_similitud": 1*100,
                 "cantidad_palabras_usuario": False, # No se utiliza
             }
         else:
             return {
-                "contenido_respuesta": False,
+                "respuestas": False,
                 "pregunta_usuario": False,
-                "porcentaje_similitud": 0*100,
+                "porcentajes_similitud": 0*100,
                 "cantidad_palabras_usuario": False # No se utiliza
             }
         
-def buscar_pregunta_similar(pregunta, preguntas_almacenadas):
+def buscar_pregunta_similar(pregunta, preguntas_almacenadas, pregunta_original):
     # Busca la pregunta que mas se asemeje a la pasada por parametros
     # Devuelve el String con la respuesta si la encuentra y esta sobre el minimo permitido
     # Si no la encuentra devuelve False
@@ -51,7 +54,7 @@ def buscar_pregunta_similar(pregunta, preguntas_almacenadas):
     # Itera sobre todas las preguntas almacenadas y calcula el porcentaje de similitud para cada una
     for i in range (0, len(preguntas_almacenadas)):
         puntaje = 0
-        palabras_clave_pregunta_almacenada = preguntas_almacenadas[i][2][:] # [:] -> crea una copia identica de la lista original (No copia elementos mutables)             
+        palabras_clave_pregunta_almacenada = preguntas_almacenadas[i][3][:] # [:] -> crea una copia identica de la lista original (No copia elementos mutables)             
         
         # Itera sobre la lista de palabras clave del usuario
         for j in range(0, len(palabras_clave_usuario)):               
@@ -73,7 +76,7 @@ def buscar_pregunta_similar(pregunta, preguntas_almacenadas):
         # Se calcula el porcentaje de similitud con la pregunta almacenada (siempre y cuando sea mayor a cero)
         if puntaje > 0:
             # Se divide el puntaje sumado entre el puntaje maximo posible de la pregunta
-            porcentaje_actual = puntaje / preguntas_almacenadas[i][3] # Devuelve un valor entre 0.0 y 1.0
+            porcentaje_actual = puntaje / preguntas_almacenadas[i][4] # Devuelve un valor entre 0.0 y 1.0
             
             # Actualiza los porcentajes_mayores y sus respectivos index
             if porcentaje_actual > porcentajes_mayores[0]:
@@ -100,13 +103,6 @@ def buscar_pregunta_similar(pregunta, preguntas_almacenadas):
             "cantidad_palabras_usuario": len(palabras_clave_usuario)
         }
     else:
-        sugerencia1 = preguntas_almacenadas[index_porcentajes_mayores[0]][0]
-        sugerencia2 = preguntas_almacenadas[index_porcentajes_mayores[1]][0]
-        sugerencia3 = preguntas_almacenadas[index_porcentajes_mayores[2]][0]
-        
-#         print(sugerencia1, porcentajes_mayores[0])
-#         print(sugerencia2, porcentajes_mayores[1])
-#         print(sugerencia3, porcentajes_mayores[2])
         return {
             # Lista de las 3 mejores respuestas sugeridas
             "respuestas":
@@ -130,7 +126,7 @@ def buscar_pregunta_similar(pregunta, preguntas_almacenadas):
                 round(porcentajes_mayores[2]*100, 2)
             ],
             # Se usa para guardar la pregunta del usuario en caso de ser aprendida
-            "enseniar_pregunta_usuario": pregunta,
+            "enseniar_pregunta_usuario": pregunta_original,
             # Se usa para mostrar advertencia en caso de escribir muchas palabras y no encontrar respuesta
             "cantidad_palabras_usuario": len(palabras_clave_usuario)
         }
