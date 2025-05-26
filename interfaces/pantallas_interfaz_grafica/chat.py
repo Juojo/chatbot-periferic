@@ -34,9 +34,6 @@ No me digas: "Hola ¿como estas? me gustaria saber que es un periferico"'''
         else:
             texto_disculpa = "Disculpame, no logre encontrar una respuesta precisa a tu pregunta."
             enviar_mensaje_chatbot(nombre_chatbot, texto_disculpa)
-            
-            # Se guarda la respuesta de la consola en el log.
-            #guardarLog("consola", texto_disculpa, nombre_usuario, respuesta["porcentaje_similitud"])
 
             # Se printea la advertencia de pregunta muy larga
             if respuesta["cantidad_palabras_usuario"] >= 8:
@@ -58,7 +55,6 @@ Si ninguna de las sugerencias es adecuada a tu pregunta, tambien me podes enseñ
 5: Hacer otra pregunta
 
 Por favor, indicame el numero de la opcion que queres seleccionar'''
-        #enviar_mensaje_chatbot(nombre_chatbot, opciones_menu_sugerencia)
 
         enviar_mensaje_chatbot(nombre_chatbot, "Pero aca te dejo 3 sugerencias que creo que te pueden servir:")
 
@@ -69,7 +65,8 @@ Por favor, indicame el numero de la opcion que queres seleccionar'''
                 text=f"({str(porcentajes_similitudes[0])} % de similitud) {preguntas_sugeridas[0]}",
                 on_click=lambda e, resp=respuestas_sugeridas[0]: (
                     enviar_mensaje_chatbot(nombre_chatbot, resp),
-                    # deshabilito explicitamente cada botón
+                    guardarLog("consola", ("(Respuesta sugerida) " + respuestas_sugeridas[0]), nombre_usuario, porcentajes_similitudes[0]),
+
                     setattr(btn_sug1, "disabled", True),
                     setattr(btn_sug2, "disabled", True),
                     setattr(btn_sug3, "disabled", True),
@@ -81,7 +78,8 @@ Por favor, indicame el numero de la opcion que queres seleccionar'''
                 text=f"({str(porcentajes_similitudes[1])} % de similitud) {preguntas_sugeridas[1]}",
                 on_click=lambda e, resp=respuestas_sugeridas[1]: (
                     enviar_mensaje_chatbot(nombre_chatbot, resp),
-                    # deshabilito explicitamente cada botón
+                    guardarLog("consola", ("(Respuesta sugerida) " + respuestas_sugeridas[1]), nombre_usuario, porcentajes_similitudes[1]),
+
                     setattr(btn_sug1, "disabled", True),
                     setattr(btn_sug2, "disabled", True),
                     setattr(btn_sug3, "disabled", True),
@@ -93,7 +91,8 @@ Por favor, indicame el numero de la opcion que queres seleccionar'''
                 text=f"({str(porcentajes_similitudes[2])} % de similitud) {preguntas_sugeridas[2]}",
                 on_click=lambda e, resp=respuestas_sugeridas[2]: (
                     enviar_mensaje_chatbot(nombre_chatbot, resp),
-                    # deshabilito explicitamente cada botón
+                    guardarLog("consola", ("(Respuesta sugerida) " + respuestas_sugeridas[2]), nombre_usuario, porcentajes_similitudes[2]),
+
                     setattr(btn_sug1, "disabled", True),
                     setattr(btn_sug2, "disabled", True),
                     setattr(btn_sug3, "disabled", True),
@@ -150,6 +149,9 @@ Por favor, indicame el numero de la opcion que queres seleccionar'''
         # Se guarda temporalmente el mensaje del usuario en memoria
         mensaje_usuario = input_pregunta.value
         mensaje_usuario_normalizado_stemizado = stemizar(normalizar(mensaje_usuario))
+
+        # Se guarda el log
+        guardarLog("user", mensaje_usuario, nombre_usuario)
 
         # Se escribe el mensaje del usuario en pantalla
         area_mensajes.controls.append(ft.Text(f"{nombre_usuario}: {mensaje_usuario}"))
