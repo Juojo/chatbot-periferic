@@ -3,12 +3,13 @@ import flet as ft
 from logica.util import *
 from logica.buscador_respuestas import obtener_respuesta
 from logica.manejo_archivo_preguntas import agregar_pregunta_respuesta_aprendida
+from logica.puntaje import *
 
 
 from logica.manejo_archivo_logs import guardarLog
 
 def iniciar_pantalla_chat(page, preguntas_almacenadas, nombre_chatbot):
-    nombre_usuario = "Usuario"
+    nombre_usuario = "usuario"
 
     presentacion_chatbot = f"Hola mi nombre es {nombre_chatbot} se mucho sobre perifericos y me encataria resolver cualquier duda que tengas relacionada a este tema."
     advertencia_pregunta_larga = f'''Tu pregunta fue muy larga {nombre_usuario}, si queres podes volver a preguntarmela de una manera mas corta y directa.
@@ -114,8 +115,8 @@ Por favor, indicame el numero de la opcion que queres seleccionar'''
 
         boton_enseniar = ft.ElevatedButton(
                 text="Enseñar la respuesta",
-                on_click=lambda e, resp=respuestas_sugeridas[2]: (
-                    enviar_mensaje_chatbot(nombre_chatbot, ),
+                on_click=lambda e: (
+                    ingresar_enseniar(pregunta_usuario, preguntas_almacenadas),
                     # deshabilito explicitamente cada botón
                     setattr(btn_sug1, "disabled", True),
                     setattr(btn_sug2, "disabled", True),
@@ -130,43 +131,20 @@ Por favor, indicame el numero de la opcion que queres seleccionar'''
 
         enviar_mensaje_chatbot(nombre_chatbot, "Segui escribiendo si no queres seleccionar ninguna opcion")
 
-    # Eventos de flet
-
-    # 1) Creamos el TextField que irá dentro del diálogo
-    enseniar_dialog = ft.TextField(
-        label="Escribe tu respuesta",
-        autofocus=True,
-        width=300,
-    )
-
-    # 2) Definimos el AlertDialog SIN botón de cancelar, sólo “Enviar”
-    dialog = ft.AlertDialog(
-        #title=ft.Text("Ingresa tu respuesta"),
-        content=enseniar_dialog,
-        actions=[
-            ft.TextButton(
-                "Enviar",
-                on_click=lambda e: submit_input(e)
-            )
-        ],
-        actions_alignment=ft.MainAxisAlignment.END,
-    )
-
-    # 3) Función que procesa el texto y cierra el diálogo
-    def submit_input(e: ft.ControlEvent):
-        texto = enseniar_dialog.value
-        # Se guarda la respuesta
-        if agregar_pregunta_respuesta_aprendida(pregunta_usuario, texto): # Devuelve True si no hay fallas
+    def ingresar_enseniar(pregunta_usuario, preguntas_almacenadas):
+        # Esta funcion no la pudimos adaptar a flet, funciona desde la consola
+        nueva_respuesta = input("Por favor, escribí la respuesta: ")
+        
+        # Guardar en el archivo CSV
+        if agregar_pregunta_respuesta_aprendida(pregunta_usuario, nueva_respuesta): # Devuelve True si no hay fallas
             print("\nNueva pregunta-respuesta guardada correctamente.")
             print("¡Gracias! He aprendido algo nuevo.")
             # También actualizar la lista en memoria
             pregunta_normalizada_stemizada = stemizar(normalizar(pregunta_usuario))
             preguntas_almacenadas.append((pregunta_usuario, nueva_respuesta + "\n", pregunta_normalizada_stemizada, pregunta_normalizada_stemizada.split(), calcular_puntaje_lista_palabra(pregunta_normalizada_stemizada.split())))
 
-        
-        # Cerramos el diálogo
-        dialog.open = False
-        page.update()
+
+    # Eventos de flet
 
     def enviar_mensaje_usuario(e):
         # Se guarda temporalmente el mensaje del usuario en memoria
