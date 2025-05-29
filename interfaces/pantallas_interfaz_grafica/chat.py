@@ -11,6 +11,8 @@ from logica.manejo_archivo_logs import guardarLog
 def iniciar_pantalla_chat(page, preguntas_almacenadas, nombre_chatbot):
     nombre_usuario = "usuario"
 
+    page.scroll = ft.ScrollMode.AUTO
+
     presentacion_chatbot = f"Hola mi nombre es {nombre_chatbot} se mucho sobre perifericos y me encataria resolver cualquier duda que tengas relacionada a este tema."
     advertencia_pregunta_larga = f'''Tu pregunta fue muy larga {nombre_usuario}, si queres podes volver a preguntarmela de una manera mas corta y directa.
 Por ejemplo, si queres saber que es un periferico:
