@@ -37,8 +37,8 @@ def almacenar_preguntas_en_memoria(ruta_archivo_preguntas, ruta_archivo_pregunta
     # (3) Lista de palabras clave,
     # (4) Puntaje numerico total de la lista de palabras clave
     
-    # Entonces, si se quiere saber cual es la respuesta de la tercer preguta se hace: preguntas_almacenadas[2][1]
-    # Y si se quisiera obtener la primer palabra de la lista de palabras claves: preguntas_almacenadas[2][2][0]
+    # Entonces, si se quiere saber cual es la respuesta de la tercer pregunta se hace: preguntas_almacenadas[2][1]
+    # Y si se quisiera obtener la primer palabra de la lista de palabras claves: preguntas_almacenadas[2][3][0]
 
 def main():
     nombre_chatbot = "Periferic"
