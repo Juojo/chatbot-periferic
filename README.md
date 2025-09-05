@@ -27,19 +27,19 @@ chatbot-periferic/
 │   └── preguntasAprendidas.csv
 ```
 
-1. # Logica del programa:
+# Logica del programa
 
 ## Escritura del arhivo con las preguntas almacenadas
 
 El chatbot cuenta con una lista de preguntas y respuestas que son almacenadas en el archivo `preguntas.csv`. No es necesario contar con el archivo porque el mismo es generado automáticamente y de forma inteligente al ejecutar el programa.
 
-### ¿Qué quiere decir que preguntas.csv se genera "de forma inteligente"?
+#### ¿Qué quiere decir que preguntas.csv se genera "de forma inteligente"?
 
 Al correr el script principal del programa, el mismo verifica que el usuario cuente con el archivo `preguntas.csv` en su computadora. En el caso de no ser así, se genera automáticamente en el directorio donde esté ubicado el programa.
 
 Otra posibilidad sería que el archivo exista pero su contenido no sea el correcto. Este caso también está contemplado, si ocurriera se sobreescribe el contenido incorrecto con el correcto (de acuerdo al código del programa).
 
-### ¿Como se detecta que el contenido del archivo no es correcto?
+#### ¿Como se detecta que el contenido del archivo no es correcto?
 
 Se utiliza el hash sha256 para detectar si el contenido del archivo es incorrecto. El programa llama a la función `calcularSha256(ruta_archivo)` sobre el archivo .csv que tenga el usuario en su computadora y lo compara con el sha256 que consideramos correcto.
 
@@ -78,7 +78,7 @@ Se realiza una busqueda entre la pregunta del usuario y las preguntas almacenada
 
 En el caso de no encontrar una pregunta identica, se realiza una busqueda utilizando el sistema de puntajes. Este sistema permite encontrar preguntas que no hayan sido escritas literalmente como estan almacenadas.
 
-### ¿Cómo funciona el sistema de puntajes?
+#### ¿Cómo funciona el sistema de puntajes?
 
 Se divide la pregunta del usuario y las preguntas almacenadas en elementos de una lista.
 
@@ -103,17 +103,19 @@ Luego de hacer esto, Se muestran tres sugerencias de preguntas que podrian llega
 
 Ademas de mostrar las sugerencias se le da la opcion al usuario de hacer otra pregunta o enseñarle la respuesta a la pregunta realizada.
 
-### Aprendizaje de preguntas
+#### Aprendizaje de preguntas
 
 El usuario tiene la posibilidad de enseñarle preguntas y respuestas al chatbot. Como se menciono anteriormente, esta opcion solo se habilita en caso de no haber econtrado una respuesta.
 
 La *pregunta-respuesta* que haya sido enseñada por el usuario se almacena en memoria y tambien dentro del arhivo `preguntasAprendidas.csv` (para poder conservarlas en proximas sesiones).
 
-2. # Interfaces:
+# Interfaces
 
 El programa se ejecuta utilizando la interfaz grafica desarrollada en Flet, tambien cuenta con la posibilidad de utilizar la interfaz de consola. Esta ultima es la recomendada para la implementacion de nuevas funciones, ya que es mas comoda y sencilla para el desarrollo.
 
-3. # Almacenamiento de informacion:
+<br>
+
+# Almacenamiento de informacion
 
 Se hizo uso de archivos .csv para almacenar las preguntas y las respuestas del chatbot. Utilizamos el siguiente formato:
 
@@ -123,3 +125,5 @@ Pregunta;Respuesta
 ```
 
 Primero se colocan, a modo de referencia, los campos del contenido a almacenar. Cada columna se separa por un `;` y cada fila por un salto de línea `\n`.
+
+> Aclaración: El chatbot depende del archivo ./preguntas.csv para funcionar, pero no de ./preguntasAprendidas.csv. Este último solo se crea para guardar las preguntas aprendidas entre sesiones y se manejan de la misma forma.
